@@ -1,0 +1,38 @@
+{
+  "announcement": {
+    "show": false,
+    "text": "We're closed on Saturday 26 December. Merry Christmas from all of us at Upper Room.",
+    "link_text": "",
+    "link_url": ""
+  },
+  "contact": {
+    "phone": "0494 729 748",
+    "email": "info@upperroombookshop.com",
+    "instagram": "https://www.instagram.com/upperroombookshop"
+  },
+  "ramsgate": {
+    "hours_summary": "Mon–Sat from 7am",
+    "hours": [
+      { "label": "Monday – Wednesday", "short": "Mon–Wed", "days": ["Monday", "Tuesday", "Wednesday"], "closed": false, "open": "07:00", "close": "16:00" },
+      { "label": "Thursday", "short": "Thu", "days": ["Thursday"], "closed": false, "open": "07:00", "close": "21:00" },
+      { "label": "Friday – Saturday", "short": "Fri–Sat", "days": ["Friday", "Saturday"], "closed": false, "open": "07:00", "close": "16:00" },
+      { "label": "Sunday", "short": "Sun", "days": ["Sunday"], "closed": true, "open": "", "close": "" }
+    ],
+    "hours_note": "Public holiday hours may vary. We post any changes on Instagram."
+  },
+  "coffee_with_christ": {
+    "day": "Thursday",
+    "start": "19:00",
+    "end": "20:00",
+    "where": "Ramsgate"
+  },
+  "narellan": {
+    "status": "Opening soon",
+    "hours": "To be announced",
+    "mailchimp_form_action": ""
+  },
+  "links": {
+    "gift_cards": "https://app.squareup.com/gift/MLDP1QRKYSY9Q/order",
+    "donate": "https://square.link/u/PcCqXFPE"
+  }
+}

@@ -1,0 +1,12 @@
+# Old Squarespace addresses -> new pages (301 = permanent, keeps search ranking)
+/grand-opening        /gallery              301
+/grand-opening/*      /gallery              301
+/cart                 /                     301
+/home                 /                     301
+/contact-us           /contact              301
+/visit-us             /visit                301
+/ramsgate             /visit/ramsgate       301
+/narellan             /visit/narellan       301
+/donate               /support              301
+/gift-cards           /support              301
+/bible-study          /coffee-with-christ   301

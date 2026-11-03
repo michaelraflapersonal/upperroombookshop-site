@@ -1,0 +1,8 @@
+/* ---- Live-site additions (Cloudflare build) ---- */
+.hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}
+.formerr{padding:16px 18px;border:1px solid #3B3A36;background:#EAE3D6;color:#3B3A36;font:400 16px/1.5 var(--sans)}
+.dark .formerr{background:#3B3A36;color:#F4F2EE;border-color:#D4B26A}
+.cf-turnstile{min-height:65px}
+.announce{position:relative;z-index:40;background:#3B3A36;color:#F4F2EE;font:400 15px/1.5 var(--sans);text-align:center;padding:10px 0}
+.announce p{margin:0}
+.announce a{color:#D4B26A;text-decoration:underline;text-underline-offset:3px}
