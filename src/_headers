@@ -12,3 +12,6 @@
 
 /site.js
   Cache-Control: public, max-age=3600
+
+/books.js
+  Cache-Control: public, max-age=3600

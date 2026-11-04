@@ -8,7 +8,7 @@
 //   CONTACT_TO            text    where messages go, e.g. info@upperroombookshop.com
 //   CONTACT_FROM          text    verified sender, e.g. "Upper Room website <website@upperroombookshop.com>"
 
-const MAX = { name: 120, email: 200, loc: 60, message: 5000 };
+const MAX = { name: 120, email: 200, loc: 60, topic: 160, message: 5000 };
 
 export async function onRequestPost({ request, env }) {
   const wantsJson = (request.headers.get('Accept') || '').includes('application/json');
@@ -25,6 +25,7 @@ export async function onRequestPost({ request, env }) {
   }
   const get = (k) => String(form.get(k) || '').trim().slice(0, MAX[k] || 200);
   const name = get('name'), email = get('email'), loc = get('loc'), message = get('message');
+  const topic = get('topic'); // set by the Books & gifts page, e.g. "Please put aside: <title>"
 
   // Honeypot: real people never fill this hidden field. Pretend success so bots move on.
   if (String(form.get('website') || '').trim()) return reply(true);
@@ -47,7 +48,7 @@ export async function onRequestPost({ request, env }) {
   }
 
   const esc = (s) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
-  const subject = `Website message from ${name}${loc ? ` (${loc})` : ''}`;
+  const subject = topic ? `${topic} (from ${name})` : `Website message from ${name}${loc ? ` (${loc})` : ''}`;
   const text = `Name: ${name}\nEmail: ${email}\nWhich Upper Room: ${loc || '-'}\n\n${message}\n\n-- Sent from the contact form on upperroombookshop.com. Reply to this email to answer ${name}.`;
   const htmlBody = `<p><strong>Name:</strong> ${esc(name)}<br><strong>Email:</strong> ${esc(email)}<br><strong>Which Upper Room:</strong> ${esc(loc || '-')}</p>`
     + `<p style="white-space:pre-wrap">${esc(message)}</p>`

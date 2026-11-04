@@ -119,6 +119,7 @@ URLS = {
     'index.html': '/', 'visit.html': '/visit', 'ramsgate.html': '/visit/ramsgate', 'narellan.html': '/visit/narellan',
     'coffee-with-christ.html': '/coffee-with-christ', 'events.html': '/events', 'learn-more.html': '/explore-the-faith',
     'gallery.html': '/gallery', 'support.html': '/support', 'contact.html': '/contact', '404.html': '/404',
+    'books.html': '/books',
 }
 
 # Responsive photos: tools/optimise.py writes WebP sizes and src/img-manifest.json

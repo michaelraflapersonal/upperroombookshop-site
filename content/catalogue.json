@@ -1,0 +1,37 @@
+{
+  "_help": "Books & gifts page (/books). Items, prices, covers, stock and shelf spots come live from Square. This file only holds the words around them. Square setup: docs/cloudflare-setup.md section 7.",
+  "square_location_id": "L1XPT43JXWQ92",
+  "square_categories": ["Books", "Gifts"],
+  "online_checkout": false,
+  "hold_days": 7,
+  "hold_note": "We'll keep it at the counter for a week. Pay when you collect.",
+  "order_note": "Most orders take a week or two. We'll let you know when it arrives.",
+  "map_note_columns": "Columns numbered left to right",
+  "map_note_rows": "Row 1 is the top shelf",
+  "gifts_where": "Gifts sit around the shop. Ask anyone at the counter and we'll show you.",
+  "sections": {
+    "New to Orthodox Christianity": "Good first books if the Orthodox Church is new to you.",
+    "Apologetics": "Careful, honest answers to hard questions about faith.",
+    "Christian Living": "Faith in ordinary life: work, doubt, hope and daily choices.",
+    "Christian Spirituality": "Prayer, stillness and the inner life.",
+    "Devotions": "Daily readings and prayer books, including the Agpeya.",
+    "Scripture & Commentaries": "Bibles, study guides and commentaries.",
+    "Theology": "Who God is, and what that means for us.",
+    "Early Church Fathers": "The first Christian writers, in readable translations.",
+    "Lives of the Saints": "Lives of saints, from the desert to living memory.",
+    "Mysteries of the Church": "The sacraments: what they are and what they mean.",
+    "Church History": "How the Church lived and grew, told through people and places.",
+    "Fiction": "Stories that carry faith lightly.",
+    "Family & Parenting": "For parents, from a baby's first days to the teenage years.",
+    "Teens": "Bible study and faith for ages 13 to 18.",
+    "Children": "Saints, Bible stories and first prayers, for reading together.",
+    "Gifts": "Bible covers, prayer ropes, icons and small things to give."
+  },
+  "begin": [
+    { "question": "I'm new to the Orthodox faith", "section": "New to Orthodox Christianity" },
+    { "question": "I have honest questions", "section": "Apologetics" },
+    { "question": "I'd like a rhythm of daily prayer", "section": "Devotions" },
+    { "question": "I'm looking for a child", "section": "Children" },
+    { "question": "I want to give something", "section": "Gifts" }
+  ]
+}
