@@ -18,7 +18,7 @@ ARR = '<span class="arr" aria-hidden="true">→</span>'
 
 FONTS = ('<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
          '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Sans+3:ital,wght@0,400;0,500;1,300;1,400&display=swap">\n'
-         '<link rel="stylesheet" href="/site.css">\n<link rel="icon" type="image/png" href="/img/mark-olive.png">')
+         '<meta name="color-scheme" content="light dark">\n<link rel="stylesheet" href="/site.css">\n<link rel="icon" type="image/png" href="/img/mark-olive.png">')
 
 exec(open(os.path.join(B,'content.py')).read())
 

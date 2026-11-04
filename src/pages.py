@@ -190,7 +190,7 @@ page('events.html','Events | Upper Room Christian Bookshop Cafe','A weekly Thurs
 
 # ================================================================ LEARN MORE
 lm = '<div class="progress" aria-hidden="true"><i></i></div>' + phero('URM_Bookshop-32.jpg', [('index.html','Home'),(None,'Learn More')], 'An introduction',
-  'The greatest love story <em>ever told</em>', 'A gentle, no-pressure introduction to the Christian faith and the Orthodox tradition. No prior knowledge assumed.', mob='URM_Bookshop-92.jpg')
+  'The greatest love story <em>ever told</em>', 'A gentle, no-pressure introduction to the Christian faith and the Orthodox tradition. No prior knowledge assumed.', mob='URM_Bookshop-10.jpg')
 lm += f'''
 <section class="band" style="padding-top:clamp(56px,7vw,96px)">
   <div class="wrap reading">
@@ -198,7 +198,6 @@ lm += f'''
     <div>
       <div class="chapter rv" style="padding-top:0">
         <p class="prose lead" style="font:400 clamp(22px,2.3vw,27px)/1.55 var(--serif)">Many people walk into Upper Room curious about Christianity but unsure where to begin. This page is a quiet place to start: the heart of the Christian story, a little about the ancient tradition that has carried it, and some simple next steps if you'd like to go further.</p>
-        <p class="muted" style="font-size:15px">Rewritten intro (the live page's opening paragraph is general bookshop copy). Wording for Michael to approve.</p>
       </div>
       <article class="chapter rv" id="message">
         <span class="num">One</span><h2>The message</h2>
@@ -214,7 +213,7 @@ lm += f'''
         <p>At its heart is the belief that Jesus is fully God and fully human, and that His life, death and resurrection open the way to union with God. The Orthodox Church preserves the theology, worship and way of life of the earliest Christian teachers. Its services have been prayed for centuries, its icons show us a “cloud of witnesses”, and its fasts and feasts give time itself a meaning.</p>
         <p>If you sense there is more to Christianity than you've seen so far, Orthodoxy is a faith that rewards a lifetime of reading, prayer and discovery.</p>
       </article>
-      <img class="branch rv" src="img/branch-illustration.png" alt="" loading="lazy">
+      <figure class="frame rv clip icon-break" style="margin:0"><img data-speed="0.06" src="img/URM_Bookshop-92.jpg" alt="An icon of the Virgin Mary and Christ above the Bibles shelf at Upper Room" loading="lazy"></figure>
       <article class="chapter rv" id="deeper">
         <span class="num">Three</span><h2>How to go deeper</h2>
         <div class="steps" style="grid-template-columns:1fr">
@@ -225,7 +224,7 @@ lm += f'''
       </article>
       <article class="chapter rv" id="church">
         <span class="num">Four</span>
-        <div style="display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end"><h2>Visit a church near you</h2><img src="img/church-line-drawing.png" alt="" style="width:110px" loading="lazy"></div>
+        <div style="display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end"><h2>Visit a church near you</h2><img class="ink" src="img/church-line-drawing.png" alt="" style="width:110px" loading="lazy"></div>
         <p>These local parishes in Sydney's south welcome visitors. You're welcome to contact the priest before you go.</p>
         <div class="parishes">
           <div class="parish"><h3 class="serif">St Luke's, Sylvania</h3><p>Fr Dan · 0421 311 750</p><p><a href="https://stlukesorthodox.com">stlukesorthodox.com</a></p></div>
@@ -354,7 +353,7 @@ con += f'''
         <label for="c-loc">Which Upper Room?<select id="c-loc" name="loc"><option>Ramsgate</option><option>Narellan (opening soon)</option><option>General enquiry</option></select></label>
         <label for="c-msg">Message<textarea id="c-msg" name="message" required maxlength="5000"></textarea></label>
         <div class="hp" aria-hidden="true"><label for="c-web">Leave this empty<input id="c-web" name="website" tabindex="-1" autocomplete="off"></label></div>
-        <div class="cf-turnstile" data-sitekey="%%TURNSTILE_SITE_KEY%%" data-theme="light" data-size="flexible"></div>
+        <div class="cf-turnstile" data-sitekey="%%TURNSTILE_SITE_KEY%%" data-theme="auto" data-size="flexible"></div>
         <button class="btn" type="submit">Send message {ARR}</button>
         <p class="thanks" hidden>Thank you. Your message is on its way, and we'll reply soon.</p>
         <p class="formerr" role="alert" hidden>Sorry, that didn't send. Please try again, or email us at %%EMAIL%%.</p>
