@@ -195,3 +195,13 @@ page('index.html','Upper Room | Christian Bookshop &amp; Cafe, Ramsgate Sydney',
 exec(open(os.path.join(B,'pages.py')).read())
 exec(open(os.path.join(B,'books.py')).read())
 exec(open(os.path.join(B,'deploy.py')).read())
+
+# Cache-busting: browsers keep /site.css etc. for an hour (src/_headers), so a deploy that changes
+# them could show new HTML with old styles. Stamp each reference with a hash of the file's contents.
+import hashlib, glob
+_stamp = {f: hashlib.sha1(open(os.path.join(OUT, f), 'rb').read()).hexdigest()[:10] for f in ('site.css', 'site.js', 'books.js') if os.path.exists(os.path.join(OUT, f))}
+for _p in glob.glob(os.path.join(OUT, '**', '*.html'), recursive=True):
+    _d = open(_p, encoding='utf-8').read(); _n = _d
+    for _f, _h in _stamp.items():
+        _n = re.sub(rf'(href|src)="/{re.escape(_f)}"', rf'\1="/{_f}?v={_h}"', _n)
+    if _n != _d: open(_p, 'w', encoding='utf-8').write(_n)

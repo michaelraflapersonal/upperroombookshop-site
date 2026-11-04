@@ -110,6 +110,14 @@ export async function buildCatalogue(env) {
     cursor = d.cursor;
   } while (cursor);
   const live = items.filter((it) => atLoc(it) && !it.item_data?.is_archived && it.item_data?.ecom_visibility !== 'HIDDEN');
+  const foundIds = new Set(items.map((it) => it.id));
+  // Counts so anyone can check the site against Square (shown at /api/catalogue as "stats").
+  const stats = {
+    square_items_found: foundIds.size,
+    not_at_this_location: items.filter((it) => !atLoc(it)).length,
+    archived: items.filter((it) => atLoc(it) && it.item_data?.is_archived).length,
+    hidden_from_online: items.filter((it) => atLoc(it) && !it.item_data?.is_archived && it.item_data?.ecom_visibility === 'HIDDEN').length,
+  };
 
   // 3. Cover images
   const imgIds = [...new Set(live.map((it) => (it.item_data.image_ids || [])[0]).filter(Boolean))];
@@ -180,7 +188,8 @@ export async function buildCatalogue(env) {
   const sectionsInUse = [...new Set(out.map((x) => x.c))];
   const order = Object.keys(cfg.sections);
   sectionsInUse.sort((a, b) => (order.indexOf(a) + 1 || 999) - (order.indexOf(b) + 1 || 999) || a.localeCompare(b));
-  return { updated: new Date().toISOString(), sections: sectionsInUse, items: out };
+  stats.shown_on_site = out.length;
+  return { updated: new Date().toISOString(), sections: sectionsInUse, stats, items: out };
 }
 
 // ---------- Cache ----------
