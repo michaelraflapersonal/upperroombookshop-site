@@ -250,6 +250,6 @@ body:has(.lmhero) header.site:not(.solid) .findus{background:#3B3A36;color:#F4F2
 }
 /* Tap targets: grow the hit area without moving anything */
 .tlink,footer a,.copy-btn,.toc a{position:relative}
-.tlink::before,footer a::before,.copy-btn::before{content:"";position:absolute;inset:-12px -8px}
+.tlink::before,footer a::before,.copy-btn::before{content:"";position:absolute;inset:-12px -8px;z-index:1}
 footer a{display:inline-block}
 @media (pointer:coarse){.crumbs a::before{content:"";position:absolute;inset:-14px -6px}.crumbs a{position:relative}}
