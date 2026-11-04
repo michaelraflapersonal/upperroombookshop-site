@@ -107,4 +107,6 @@ The token can see everything in the Square account, so keep it only in Cloudflar
 
 **Hold and order requests** use the contact form's Turnstile and Resend settings (sections 2 and 3). They arrive at info@ with a subject like "Please put aside: Title (from Name)", with the ISBN, price and shelf spot inside. Reply to the email to answer.
 
-**If `/books` says the shelves aren't loading** while the token is set, check Worker → Logs. "Square … 401" means the token is wrong or revoked. "Exceeded CPU" means the catalogue has grown past what the Workers Free plan allows in one go (10 ms of processing per visit); the Workers Paid plan (US$5 a month) removes that limit.
+**Pull-request previews don't share the live site's secrets.** A secret added under Production is not seen by previews. To test on a preview, switch Variables and Secrets to **Previews Base** and add `SQUARE_ACCESS_TOKEN` there too. It applies to previews created after that, so push a new branch or ask Claude to recreate the preview.
+
+**If `/books` says the shelves aren't loading**, open `/api/catalogue` on the same site. The `reason` it shows tells you why: `no_token` means this deployment can't see the secret, and `square_401_UNAUTHORIZED` means the token is wrong, revoked, or a Sandbox token. For more detail, check Worker → Logs. "Square … 401" means the token is wrong or revoked. "Exceeded CPU" means the catalogue has grown past what the Workers Free plan allows in one go (10 ms of processing per visit); the Workers Paid plan (US$5 a month) removes that limit.
