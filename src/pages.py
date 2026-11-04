@@ -4,16 +4,12 @@ HRS_TABLE = '''<table class="hrs"><caption class="eyebrow" style="text-align:lef
 %%HOURS_TABLE_ROWS%%</tbody></table>
 <p class="muted" style="font-size:15px;margin-top:14px">%%HOURS_NOTE%%</p>'''
 
-MAP_SVG = '''<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-<rect width="400" height="300" fill="var(--bg-alt)"/>
-<g stroke="var(--line)" stroke-width="10" fill="none" stroke-linecap="round"><path d="M-10 210 C 90 190, 160 175, 410 120"/><path d="M190 -10 L 215 310"/><path d="M-10 80 L 410 60"/></g>
-<g stroke="var(--line)" stroke-width="4" fill="none"><path d="M60 -10 L 80 310"/><path d="M320 -10 L 300 310"/><path d="M-10 260 L 410 250"/><path d="M-10 30 L 410 20"/></g>
-<path d="M330 300 C 350 250, 400 240, 410 230 L 410 300 Z" fill="var(--sage)" opacity=".35"/>
-<text x="232" y="112" font-family="Source Sans 3, sans-serif" font-size="10" letter-spacing="1.5" fill="var(--muted)">ROCKY POINT RD</text>
-</svg>'''
-
+MAP_SRC = "https://www.google.com/maps?q=219+Rocky+Point+Rd,+Ramsgate+NSW+2217&hl=en&z=16&output=embed"
 def mapcard(label, href):
-    return f'<a class="mapcard rv" href="{href}">{MAP_SVG}<div class="pin"><img src="img/mark-olive.png" alt=""><span>{label}</span></div><span class="open">Open in Google Maps {ARR}</span></a>'
+    return (f'<figure class="mapembed rv"><div class="mapframe"><iframe src="{MAP_SRC}" title="Map showing {label}" loading="lazy" '
+            f'referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div>'
+            f'<figcaption><span>219 Rocky Point Rd, Ramsgate</span><a class="tlink" href="https://www.google.com/maps/search/?api=1&amp;query=219%20Rocky%20Point%20Rd%20Ramsgate%20NSW%202217" target="_blank" rel="noopener">Open in Google Maps {ARR}</a>'
+            f'<a class="tlink" href="{href}" target="_blank" rel="noopener">Directions</a></figcaption></figure>')
 
 # ================================================================ VISIT HUB
 visit = phero('cafe-62.jpg', [('index.html','Home'),(None,'Visit')], 'Visit Upper Room',

@@ -75,14 +75,13 @@ table.hrs td{text-align:right}
 table.hrs tr.is-today th,table.hrs tr.is-today td{color:var(--link);font-weight:500}
 table.hrs tr.is-today th::after{content:"Today";font:500 11px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;margin-left:12px;color:var(--gold)}
 
-/* Map card */
-.mapcard{position:relative;aspect-ratio:4/3;background:var(--bg-alt);border:1px solid var(--line);overflow:hidden;display:block;text-decoration:none;color:var(--fg)}
-.mapcard svg{position:absolute;inset:0;width:100%;height:100%}
-.mapcard .pin{position:absolute;left:50%;top:46%;transform:translate(-50%,-100%);display:grid;justify-items:center;gap:8px}
-.mapcard .pin img{width:38px}
-.mapcard .pin span{background:var(--card);border:1px solid var(--line);font:500 13px/1 var(--sans);padding:8px 12px;white-space:nowrap}
-.mapcard .open{position:absolute;right:14px;bottom:14px;font:500 14px/1 var(--sans);background:var(--char);color:#F4F2EE;padding:11px 14px}
-@media (prefers-reduced-motion:no-preference){.mapcard .pin{animation:drop 1s var(--ease) .4s both}}
+/* Live map */
+.mapembed{margin:0;display:grid;gap:14px}
+.mapframe{position:relative;aspect-ratio:4/3;background:var(--bg-alt);border:1px solid var(--line);overflow:hidden}
+.mapframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:sepia(.18) saturate(.8) hue-rotate(-8deg)}
+.mapembed figcaption{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;font:400 15px/1.4 var(--sans);color:var(--muted)}
+.mapembed figcaption span{flex:1 1 100%}
+@media (prefers-color-scheme:dark){.mapframe iframe{filter:invert(.92) hue-rotate(180deg) saturate(.55) sepia(.2) brightness(.95) contrast(.95)}}
 @keyframes drop{from{transform:translate(-50%,-140%);opacity:0}to{transform:translate(-50%,-100%);opacity:1}}
 
 /* Info list */
@@ -253,3 +252,4 @@ body:has(.lmhero) header.site:not(.solid) .findus{background:#3B3A36;color:#F4F2
 .tlink::before,footer a::before,.copy-btn::before{content:"";position:absolute;inset:-12px -8px;z-index:1}
 footer a{display:inline-block}
 @media (pointer:coarse){.crumbs a::before{content:"";position:absolute;inset:-14px -6px}.crumbs a{position:relative}}
+.mapembed figcaption .tlink{white-space:nowrap;flex:none}
