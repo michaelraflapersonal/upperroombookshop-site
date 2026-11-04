@@ -19,13 +19,13 @@
 2. **Compare the import against your list, record by record.** Add anything missing. Every Google record above must be there with the exact same value.
 3. Set all Google records (MX, TXT) to **DNS only** (grey cloud). MX and TXT can't be proxied anyway; just confirm.
 4. **Do not turn on Cloudflare Email Routing.** It replaces the MX records and would take mail away from Google Workspace.
-5. Delete the old Squarespace website records (the `A` records to Squarespace IPs and the `www` CNAME to `ext-cust.squarespace.com`). The Pages step below replaces them.
+5. Delete the old Squarespace website records (the `A` records to Squarespace IPs and the `www` CNAME to `ext-cust.squarespace.com`). The Worker step below replaces them.
 6. Cloudflare shows two nameservers. In Squarespace → Domains → upperroombookshop.com → **Nameservers → Use custom nameservers**, enter them.
 7. Wait for Cloudflare to email "your domain is active" (usually under an hour, up to 24).
 
 ## Point the domain at the new site
 
-1. Pages project → **Custom domains → Set up a domain** → `www.upperroombookshop.com`. Then add `upperroombookshop.com` too.
+1. Worker → **Settings → Domains & Routes → Add → Custom domain** → `www.upperroombookshop.com`. Then add `upperroombookshop.com` too. After that, you can turn off the workers.dev address so Google doesn't index the test copy.
 2. Make `www` the main address (it's what Google already knows): Cloudflare → **Rules → Redirect Rules → Create** → "Redirect from root to WWW" template.
 3. Add the Turnstile hostname `upperroombookshop.com` if you haven't, and add Resend's DNS records if they were set up in Squarespace before the move.
 

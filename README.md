@@ -1,10 +1,10 @@
 # Upper Room Christian Bookshop Cafe: website
 
-The website for upperroombookshop.com, hosted on Cloudflare Pages.
+The website for upperroombookshop.com, hosted on Cloudflare (a Worker with static assets).
 
 ## How it works
 
-A small Python script (no extra packages) builds plain HTML pages into `dist/`. Cloudflare Pages runs that script on every push to `main` and publishes the result. The contact form is a Cloudflare Pages Function in `functions/`.
+A small Python script (no extra packages) builds plain HTML pages into `dist/`. On every push to `main`, Cloudflare Workers Builds runs `npx wrangler deploy`. That runs the script (see `wrangler.jsonc`) and publishes `dist/`. The contact form handler is in `functions/api/contact.js`, and `worker/index.js` routes `/api/contact` to it.
 
 | Folder / file | What it is |
 |---|---|
@@ -29,7 +29,7 @@ All of these are in `content/settings.json`. Edit the file on GitHub (pencil ico
 
 ```
 python3 src/build.py           # writes dist/
-npx wrangler pages dev dist    # serves it with the redirects and the contact function
+npx wrangler dev               # builds and serves it with the redirects and the contact form
 ```
 
 ## Pages and addresses

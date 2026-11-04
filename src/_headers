@@ -4,10 +4,6 @@
   X-Frame-Options: SAMEORIGIN
   Permissions-Policy: camera=(), microphone=(), geolocation=()
 
-# Preview builds on *.pages.dev must not show up in Google
-https://:project.pages.dev/*
-  X-Robots-Tag: noindex
-
 /img/*
   Cache-Control: public, max-age=2592000
 

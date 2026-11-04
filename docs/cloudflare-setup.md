@@ -1,29 +1,19 @@
-# Cloudflare Pages setup
+# Cloudflare setup
 
-This gets the site running on a free `*.pages.dev` address for testing. It does **not** touch upperroombookshop.com, DNS or email. Going live on the real domain is in `go-live-dns.md`.
+The site runs as a Cloudflare **Worker with static assets** (`wrangler.jsonc`). This setup doesn't touch upperroombookshop.com, DNS or email. Going live on the real domain is covered in `go-live-dns.md`.
 
-## 1. Connect the repo (about 5 minutes)
+## 1. Connect the repo (done 4 Nov 2026)
 
-1. Sign in at dash.cloudflare.com (create a free account if needed).
-2. **Workers & Pages → Create → Pages → Connect to Git.** Authorise GitHub and pick this repository.
-3. Build settings:
-   - Production branch: `main`
-   - Framework preset: **None**
-   - Build command: `python3 src/build.py`
-   - Build output directory: `dist`
-   - Root directory: leave blank
-4. **Save and Deploy.** You get an address like `upperroom-site.pages.dev`.
-
-Every push to `main` redeploys. Pushes to other branches get their own preview address.
+Workers & Pages → Create → Import a repository → `upperroombookshop-site`. Leave the build command blank and set the deploy command to `npx wrangler deploy`. Wrangler reads `wrangler.jsonc`, runs `python3 src/build.py`, then uploads `dist/` and `worker/index.js`. Every push to `main` deploys, and other branches get preview builds. The test address is `upperroombookshop-site.<your-subdomain>.workers.dev`.
 
 ## 2. Contact form: Turnstile (spam check)
 
 1. Cloudflare dashboard → **Turnstile → Add widget**. Name it "Upper Room contact form".
-2. Hostnames: add `upperroom-site.pages.dev` (your Pages address) and `upperroombookshop.com`. Widget mode: **Managed**.
+2. Hostnames: add your `workers.dev` address and `upperroombookshop.com`. Widget mode: **Managed**.
 3. Copy the **Site key** and **Secret key**.
-4. In the Pages project → **Settings → Variables and Secrets**, add (for Production *and* Preview):
-   - `TURNSTILE_SITE_KEY` = the site key (type: Text). The build puts it into the page.
-   - `TURNSTILE_SECRET_KEY` = the secret key (type: Secret).
+4. Add the keys to the Worker:
+   - `TURNSTILE_SITE_KEY` = the site key. It's a **build** variable, because the build writes it into the page: Worker → Settings → Build → Variables and secrets.
+   - `TURNSTILE_SECRET_KEY` = the secret key (type Secret): Worker → Settings → Variables and Secrets.
 
 Until these are set, the site uses Cloudflare's test keys, which let everything through. That is fine for a first look but not for going live.
 
@@ -35,13 +25,13 @@ Until these are set, the site uses Cloudflare's test keys, which let everything 
    - **After it moves:** add them in Cloudflare DNS instead.
    - Then click **Verify** in Resend.
 3. **API Keys → Create** with "Sending access" only. Copy it.
-4. Add to Pages → Settings → Variables and Secrets:
+4. Add these in Worker → Settings → Variables and Secrets:
    - `RESEND_API_KEY` = the key (Secret)
    - `CONTACT_TO` = `info@upperroombookshop.com` (Text)
    - `CONTACT_FROM` = `Upper Room website <website@upperroombookshop.com>` (Text)
-5. **Deployments → latest → Retry deployment** so the new settings take effect.
+5. Redeploy (Deployments → latest → Retry, or push any commit) so the new settings take effect.
 
-Test: send a message from `/contact` on the pages.dev address. It should arrive at info@ within a few seconds. Replying to it goes straight to the visitor. If it fails, check **Deployments → Functions → Real-time logs**.
+Test: send a message from `/contact` on the workers.dev address. It should arrive at info@ within a few seconds. Replying to it goes straight to the visitor. If it fails, check the Worker's **Logs** tab.
 
 ## 4. Narellan sign-up: Mailchimp
 
@@ -53,4 +43,4 @@ Until then the Narellan page asks people to email info@ instead. Tip: create a t
 
 ## 5. Analytics (optional, free)
 
-Pages project → **Metrics → Web Analytics → Enable**. No cookies or banner needed.
+Cloudflare → **Web Analytics → Add a site**. It's free, and needs no cookies or banner.

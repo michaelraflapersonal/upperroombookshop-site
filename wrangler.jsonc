@@ -1,0 +1,16 @@
+// Cloudflare Workers config. Workers Builds runs `npx wrangler deploy`, which
+// runs the build command below first, then uploads dist/ and the worker.
+{
+  "name": "upperroombookshop-site",
+  "main": "worker/index.js",
+  "compatibility_date": "2026-10-01",
+  "build": { "command": "python3 src/build.py" },
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "html_handling": "drop-trailing-slash",
+    "not_found_handling": "404-page",
+    "run_worker_first": ["/api/*"]
+  },
+  "observability": { "enabled": true }
+}
