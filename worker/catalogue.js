@@ -27,7 +27,14 @@ async function sq(env, path, body) {
     },
     body: body ? JSON.stringify(body) : undefined,
   });
-  if (!r.ok) throw new Error(`Square ${path} ${r.status}: ${(await r.text()).slice(0, 300)}`);
+  if (!r.ok) {
+    const text = await r.text();
+    let code = '';
+    try { code = JSON.parse(text).errors?.[0]?.code || ''; } catch {}
+    const e = new Error(`Square ${path} ${r.status}: ${text.slice(0, 300)}`);
+    e.reason = `square_${r.status}${code ? `_${code}` : ''}`; // e.g. square_401_UNAUTHORIZED; never contains the token
+    throw e;
+  }
   return r.json();
 }
 
@@ -192,8 +199,11 @@ async function refresh(request, env, ctx) {
 }
 
 // Returns the catalogue object, or null if Square has never answered.
+// Why the last fetch failed, shown by /api/catalogue so the problem can be read in a browser.
+let lastFailure = null;
+
 export async function getCatalogue(request, env, ctx) {
-  if (!env.SQUARE_ACCESS_TOKEN) return null;
+  if (!env.SQUARE_ACCESS_TOKEN) { lastFailure = 'no_token'; console.error('Catalogue: SQUARE_ACCESS_TOKEN is not set for this deployment'); return null; }
   const hit = await caches.default.match(cacheKey(request));
   if (hit) {
     const age = Date.now() - Number(hit.headers.get('X-Fetched-At') || 0);
@@ -203,6 +213,7 @@ export async function getCatalogue(request, env, ctx) {
   try {
     return await refresh(request, env, ctx);
   } catch (e) {
+    lastFailure = e.reason || 'fetch_failed';
     console.error('Catalogue fetch failed:', e.message);
     return null;
   }
@@ -210,7 +221,7 @@ export async function getCatalogue(request, env, ctx) {
 
 export async function onRequestCatalogue({ request, env, ctx }) {
   const data = await getCatalogue(request, env, ctx);
-  if (!data) return Response.json({ ok: false }, { status: 503, headers: { 'Cache-Control': 'no-store' } });
+  if (!data) return Response.json({ ok: false, reason: lastFailure }, { status: 503, headers: { 'Cache-Control': 'no-store' } });
   return new Response(JSON.stringify(data), { headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'public, max-age=60' } });
 }
 
