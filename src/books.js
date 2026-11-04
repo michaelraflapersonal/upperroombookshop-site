@@ -268,7 +268,7 @@
 
   /* ---------- Search ---------- */
   var sheet = document.getElementById('bk-sheet'), qi = document.getElementById('bk-q'), res = document.getElementById('bk-res'), sel = 0, opener = null;
-  function openSearch(){ if(state !== 'ready') return; opener = document.activeElement; sheet.hidden = false; qi.value = ''; renderSearch(); setTimeout(function(){ qi.focus(); }, 10); }
+  function openSearch(){ if(state !== 'ready') return; opener = document.activeElement; sheet.hidden = false; qi.value = ''; renderSearch(); qi.focus(); setTimeout(function(){ qi.focus(); }, 10); }
   function closeSearch(){ if(sheet.hidden) return; sheet.hidden = true; if(opener && opener.focus && document.contains(opener)) opener.focus(); }
   function norm(s){ return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[“”"’'.]/g, ''); }
   function mk(t, q){ if(!q) return esc(t); var i = norm(t).indexOf(q); if(i < 0) return esc(t); return esc(t.slice(0, i)) + '<mark>' + esc(t.slice(i, i + q.length)) + '</mark>' + esc(t.slice(i + q.length)); }
