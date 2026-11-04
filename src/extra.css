@@ -231,7 +231,7 @@ footer .sitemap a:hover{text-decoration:underline}
 @media (prefers-reduced-motion:no-preference){.lmart img{animation:rise 1.4s var(--ease) .2s both}}
 @media (max-width:860px){
   .phero.lmhero{flex-direction:column;align-items:stretch;min-height:0}
-  .lmart{position:relative;inset:auto;width:auto;height:min(52vh,380px);margin:96px auto 0;padding-inline:16px}
+  .lmart{position:relative;inset:auto;width:auto;height:min(50vh,360px);margin:108px auto 34px;padding-inline:28px}
   .lmhero .content{padding-block:8px 56px}
 }
 /* the header sits over a light background on this page */
@@ -243,7 +243,7 @@ body:has(.lmhero) header.site:not(.solid) .findus{background:#3B3A36;color:#F4F2
   .phero.lmhero{background:radial-gradient(ellipse 55% 65% at 78% 55%,rgba(234,227,214,.13) 0%,rgba(234,227,214,0) 70%),#3B3A36;color:#F4F2EE}
   .lmhero h1,.lmhero .lede,.lmhero .crumbs,.lmhero .crumbs a{color:#F4F2EE}
   .lmhero h1 em,.lmhero .eyebrow{color:#D4B26A}
-  .lmart::before{content:"";position:absolute;inset:-1% -14%;background:radial-gradient(ellipse 50% 46% at 50% 50%,rgba(234,227,214,.96) 0%,rgba(234,227,214,.9) 50%,rgba(234,227,214,.5) 72%,rgba(234,227,214,0) 100%);filter:blur(6px)}
+  .lmart::before{content:"";position:absolute;inset:-2% -3%;background:rgba(234,227,214,.96);border-radius:22px;box-shadow:0 0 26px 16px rgba(234,227,214,.5),0 30px 60px -30px rgba(0,0,0,.6)}
   .lmart img{position:relative}
   body:has(.lmhero) header.site:not(.solid){--hdr-fg:#F4F2EE}
   body:has(.lmhero) header.site:not(.solid) .logo .lo{display:none}
