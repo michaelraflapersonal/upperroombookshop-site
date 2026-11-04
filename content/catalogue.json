@@ -1,5 +1,5 @@
 {
-  "_help": "Books & gifts page (/books). Items, prices, covers, stock and shelf spots come live from Square. This file only holds the words around them. Square setup: docs/cloudflare-setup.md section 7.",
+  "_help": "Books & gifts page (/books). Items, prices, covers, stock and shelf spots come live from Square. This file only holds the words around them. Square setup: docs/cloudflare-setup.md section 9.",
   "square_location_id": "L1XPT43JXWQ92",
   "square_categories": ["Books", "Gifts"],
   "online_checkout": false,
