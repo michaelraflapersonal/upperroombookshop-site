@@ -115,7 +115,8 @@
     function load(){
       if(done) return; done = true; grid.classList.add('loading');
       fetch('https://feeds.behold.so/' + encodeURIComponent(id)).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(d){
-        var posts = (d.posts || d).filter(function(p){ return p && (p.thumbnailUrl || p.mediaUrl) && p.permalink; }).slice(0, n);
+        var posts = (d.posts || d).filter(function(p){ return p && (p.thumbnailUrl || p.mediaUrl) && p.permalink; })
+          .sort(function(a,b){ return (Date.parse(b.timestamp) || 0) - (Date.parse(a.timestamp) || 0); }).slice(0, n);  /* newest first */
         if(!posts.length) throw 0;
         var icon = $('.igi', grid), frag = document.createDocumentFragment();
         posts.forEach(function(p){
