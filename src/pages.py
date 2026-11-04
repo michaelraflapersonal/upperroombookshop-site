@@ -113,6 +113,7 @@ rams += f'''
 <section class="band" style="padding-block:clamp(56px,7vw,96px)">
   <div class="wrap"><a class="nextcard rv" href="narellan.html"><div><span class="eyebrow">In Sydney's South West?</span><h3 class="serif" style="margin-top:12px">Upper Room Narellan is opening soon</h3></div><span class="arr" aria-hidden="true">→</span></a></div>
 </section>'''
+RAMS_SCHEMA['hasMap'] = DIRS
 page('ramsgate.html','Christian Bookshop &amp; Cafe in Ramsgate | Upper Room','Books, gifts and coffee at 219 Rocky Point Rd, Ramsgate. Open Monday to Saturday from 7am, with Bible study on Thursday nights. Near Sans Souci and Sylvania.', rams, RAMS_SCHEMA)
 
 exec(open(os.path.join(B,'narellan.py')).read())
@@ -187,7 +188,7 @@ page('events.html','Events | Upper Room Christian Bookshop Cafe','A weekly Thurs
 # ================================================================ LEARN MORE
 lm = '<div class="progress" aria-hidden="true"><i></i></div>' + phero(None, [('index.html','Home'),(None,'Learn More')], 'An introduction',
   'The greatest love story <em>ever told</em>', 'A gentle, no-pressure introduction to the Christian faith and the Orthodox tradition. No prior knowledge assumed.', cls='plain lmhero').replace(
-  '<div class="wrap" style="width:100%"><div class="content">', '<div class="lmart" aria-hidden="true"><img src="img/learn-more-cross.webp" width="1000" height="1229" alt="" fetchpriority="high"></div><div class="wrap" style="width:100%"><div class="content">', 1)
+  '<div class="wrap" style="width:100%"><div class="content">', '<div class="lmart" aria-hidden="true"><img src="img/learn-more-cross.webp" width="720" height="885" alt="" fetchpriority="high"></div><div class="wrap" style="width:100%"><div class="content">', 1)
 lm += f'''
 <section class="band" style="padding-top:clamp(56px,7vw,96px)">
   <div class="wrap reading">
@@ -210,7 +211,7 @@ lm += f'''
         <p>At its heart is the belief that Jesus is fully God and fully human, and that His life, death and resurrection open the way to union with God. The Orthodox Church preserves the theology, worship and way of life of the earliest Christian teachers. Its services have been prayed for centuries, its icons show us a “cloud of witnesses”, and its fasts and feasts give time itself a meaning.</p>
         <p>If you sense there is more to Christianity than you've seen so far, Orthodoxy is a faith that rewards a lifetime of reading, prayer and discovery.</p>
       </article>
-      <figure class="icon-break rv"><div class="mat"><div><img src="img/icon-christ-and-abbot-menas.jpg" width="1000" height="1130" alt="A sixth-century Coptic icon of Christ with His arm around the shoulder of Abbot Menas" loading="lazy"></div></div></figure>
+      <figure class="icon-break rv"><div class="mat"><div><img src="img/icon-christ-and-abbot-menas.jpg" width="720" height="814" alt="A sixth-century Coptic icon of Christ with His arm around the shoulder of Abbot Menas" loading="lazy"></div></div></figure>
       <article class="chapter rv" id="deeper">
         <span class="num">Three</span><h2>How to go deeper</h2>
         <div class="steps" style="grid-template-columns:1fr">

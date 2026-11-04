@@ -107,6 +107,37 @@ URLS = {
     'gallery.html': '/gallery', 'support.html': '/support', 'contact.html': '/contact', '404.html': '/404',
 }
 
+# Responsive photos: tools/optimise.py writes WebP sizes and src/img-manifest.json
+try:
+    IMGM = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'img-manifest.json')))
+except Exception:
+    IMGM = {}
+
+def _srcset(name):
+    base = name.rsplit('.', 1)[0]
+    return ', '.join(f'/img/{base}-{w}.webp {w}w' for w in IMGM[name]['v'])
+
+def _optimise_imgs(doc):
+    def img(m):
+        tag = m.group(0)
+        sm = re.search(r'src="/img/([^"/]+\.(?:jpe?g|png))"', tag)
+        if not sm or sm.group(1) not in IMGM or 'srcset=' in tag: return tag
+        name = sm.group(1); info = IMGM[name]
+        if name.endswith('.png'):
+            return tag if 'width=' in tag else tag[:-1].rstrip('/').rstrip() + f' width="{info["w"]}" height="{info["h"]}">'
+        hero = 'fetchpriority="high"' in tag
+        add = f' srcset="{_srcset(name)}" sizes="{"100vw" if hero else "(max-width:700px) 100vw, 60vw"}"'
+        if 'width=' not in tag: add += f' width="{info["w"]}" height="{info["h"]}"'
+        if not hero and 'loading=' not in tag: add += ' loading="lazy"'
+        if 'decoding=' not in tag: add += ' decoding="async"'
+        return tag[:-1].rstrip('/').rstrip() + add + '>'
+    doc = re.sub(r'<img\b[^>]*>', img, doc)
+    def src(m):
+        name = m.group(2)
+        if name not in IMGM: return m.group(0)
+        return f'<source{m.group(1)}srcset="{_srcset(name)}" sizes="100vw">'
+    return re.sub(r'<source([^>]*?)srcset="/img/([^"]+\.jpe?g)">', src, doc)
+
 def finish(doc):
     doc = doc.replace('%%NAR_SIGNUP%%', nar_signup())
     for k, v in TOKENS.items():
@@ -116,4 +147,14 @@ def finish(doc):
     doc = re.sub(r'(href)="([a-z0-9-]+\.html)(#[^"]*)?"', lambda m: f'{m.group(1)}="{URLS[m.group(2)]}{m.group(3) or ""}"', doc)
     doc = re.sub(r'(src|srcset)="img/', r'\1="/img/', doc)
     assert not re.search(r'href="[a-z0-9-]+\.html', doc), 'a link was not mapped to a clean URL'
+    doc = _optimise_imgs(doc)
+    m = re.search(r'<img\b[^>]*fetchpriority="high"[^>]*>', doc)
+    if m:
+        ss = re.search(r'srcset="([^"]+)"', m.group(0))
+        if ss and '</head>' in doc:
+            mob = re.search(r'<source media="\(max-width:700px\)" srcset="([^"]+)"', doc)
+            pre = ''
+            if mob: pre += f'<link rel="preload" as="image" media="(max-width:700px)" imagesrcset="{mob.group(1)}" imagesizes="100vw" fetchpriority="high">\n'
+            pre += f'<link rel="preload" as="image"{" media=\"(min-width:701px)\"" if mob else ""} imagesrcset="{ss.group(1)}" imagesizes="100vw" fetchpriority="high">\n'
+            doc = doc.replace('</head>', pre + '</head>', 1)
     return doc

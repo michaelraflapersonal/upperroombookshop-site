@@ -93,6 +93,10 @@ def phero(img, crumbs, eyebrow, h1, lede, extra='', cls='', pos='center', mob=No
 </section>'''
 
 PAGES = []
+def _og_image(body):
+    m = re.search(r'<img\b[^>]*src="img/([^"]+\.jpe?g)"[^>]*fetchpriority="high"', body) or re.search(r'<img\b[^>]*fetchpriority="high"[^>]*src="img/([^"]+\.jpe?g)"', body)
+    return f'{SITE}/img/{m.group(1) if m else "URM_Bookshop-5.jpg"}'
+
 def page(fname, title, desc, body, schema=None, home=False, noindex=False):
     path = URLS[fname]
     canon = SITE + path
@@ -100,7 +104,7 @@ def page(fname, title, desc, body, schema=None, home=False, noindex=False):
             + ('' if noindex else f'<link rel="canonical" href="{canon}">\n')
             + f'<meta property="og:type" content="website">\n<meta property="og:site_name" content="Upper Room Christian Bookshop Cafe">\n'
             f'<meta property="og:title" content="{title}">\n<meta property="og:description" content="{desc}">\n'
-            f'<meta property="og:url" content="{canon}">\n<meta property="og:image" content="{SITE}/img/URM_Bookshop-5.jpg">\n'
+            f'<meta property="og:url" content="{canon}">\n<meta property="og:image" content="{_og_image(body)}">\n<meta property="og:locale" content="en_AU">\n<meta name="twitter:card" content="summary_large_image">\n'
             + ('<meta name="robots" content="noindex">\n' if noindex else '') + FONTS)
     if schema:
         head += '\n<script type="application/ld+json">' + json.dumps(schema, ensure_ascii=False) + '</script>'
@@ -126,7 +130,13 @@ RAMS_SCHEMA = {"@context":"https://schema.org","@type":["BookStore","CafeOrCoffe
 css = open(os.path.join(B,'site-base.css')).read() + open(os.path.join(B,'extra.css')).read()
 css = css.replace('header:not(.solid) .logo img{filter:brightness(0) invert(1)}','')
 css += open(os.path.join(B,'deploy.css')).read()
-open(os.path.join(OUT,'site.css'),'w').write(css)
+def _min_css(c):
+    c = re.sub(r'/\*.*?\*/', '', c, flags=re.S)
+    c = re.sub(r'\s+', ' ', c)
+    c = re.sub(r'\s*([{};,>])\s*', r'\1', c)
+    c = re.sub(r';}', '}', c)
+    return c.strip()
+open(os.path.join(OUT,'site.css'),'w').write(_min_css(css))
 open(os.path.join(OUT,'site.js'),'w').write(open(os.path.join(B,'site.js')).read())
 
 # ---------------------------------------------------------------- HOME

@@ -1,3 +1,4 @@
+img{height:auto}
 /* ---- Live-site additions (Cloudflare build) ---- */
 .hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;overflow:hidden}
 .formerr{padding:16px 18px;border:1px solid #3B3A36;background:#EAE3D6;color:#3B3A36;font:400 16px/1.5 var(--sans)}
