@@ -214,7 +214,7 @@ lm += f'''
         <p>At its heart is the belief that Jesus is fully God and fully human, and that His life, death and resurrection open the way to union with God. The Orthodox Church preserves the theology, worship and way of life of the earliest Christian teachers. Its services have been prayed for centuries, its icons show us a “cloud of witnesses”, and its fasts and feasts give time itself a meaning.</p>
         <p>If you sense there is more to Christianity than you've seen so far, Orthodoxy is a faith that rewards a lifetime of reading, prayer and discovery.</p>
       </article>
-      <figure class="icon-break rv"><img src="img/icon-christ-and-abbot-menas.jpg" width="1000" height="1130" alt="A sixth-century Coptic icon of Christ with His arm around the shoulder of Abbot Menas" loading="lazy"></figure>
+      <figure class="icon-break rv"><div class="mat"><div><img src="img/icon-christ-and-abbot-menas.jpg" width="1000" height="1130" alt="A sixth-century Coptic icon of Christ with His arm around the shoulder of Abbot Menas" loading="lazy"></div></div></figure>
       <article class="chapter rv" id="deeper">
         <span class="num">Three</span><h2>How to go deeper</h2>
         <div class="steps" style="grid-template-columns:1fr">

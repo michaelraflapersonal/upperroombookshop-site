@@ -31,6 +31,15 @@
   .chip[aria-pressed="true"]{background:#F4F2EE;border-color:#F4F2EE;color:#3B3A36}
 }
 
-.icon-break{max-width:440px;margin:8px auto 0;display:grid;gap:12px}
-.icon-break img{width:100%;height:auto;display:block;box-shadow:0 18px 40px -24px rgba(59,58,54,.55)}
-.icon-break figcaption{font:italic 400 14px/1.45 var(--sans);color:var(--muted);text-align:center}
+
+/* Framed icon: linen mat, gold hairline, inner keyline, lit like a hung panel */
+.icon-break{margin:clamp(40px,6vw,72px) auto;width:min(82%,360px);display:block;position:relative}
+.icon-break .mat{background:#EAE3D6;border:1px solid #D4B26A;padding:clamp(12px,2vw,18px);box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 28px 50px -30px rgba(59,58,54,.6),0 6px 14px -8px rgba(59,58,54,.35)}
+.icon-break .mat div{position:relative;outline:1px solid rgba(111,123,74,.55);outline-offset:6px;margin:6px}
+.icon-break img{width:100%;height:auto;aspect-ratio:1000/1130;object-fit:cover;display:block}
+.icon-break::before,.icon-break::after{content:"";position:absolute;left:50%;width:1px;height:28px;background:#D4B26A;opacity:.7}
+.icon-break::before{bottom:100%}.icon-break::after{top:100%}
+@media (prefers-color-scheme:dark){
+  .icon-break .mat{background:#4a4944;border-color:rgba(212,178,106,.8);box-shadow:0 28px 50px -26px rgba(0,0,0,.7)}
+  .icon-break .mat div{outline-color:rgba(169,181,154,.5)}
+}
