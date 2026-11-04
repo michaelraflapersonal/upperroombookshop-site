@@ -243,7 +243,7 @@ lm += f'''
 <section class="band sage" style="padding-block:clamp(64px,8vw,110px)">
   <div class="wrap quote"><span class="eyebrow rv">Come and see</span><blockquote class="rv">The best introduction is a quiet hour with a book and a coffee.</blockquote><p class="rv"><a class="tlink" href="visit.html">Plan your visit {ARR}</a></p></div>
 </section>'''
-page('learn-more.html','An Introduction to Orthodox Christianity | Upper Room','A gentle introduction to the Christian faith and the Orthodox tradition, with local parishes to visit in Sydney. No prior knowledge assumed.', lm)
+page('learn-more.html','Explore the Faith: An Introduction to Orthodox Christianity | Upper Room','A gentle introduction to the Christian faith and the Orthodox tradition, with local parishes to visit in Sydney. No prior knowledge assumed.', lm)
 
 # ================================================================ GALLERY
 G = [
