@@ -186,7 +186,7 @@ ev += f'''
 page('events.html','Events | Upper Room Christian Bookshop Cafe','A weekly Thursday Bible study and occasional gatherings at Upper Room Christian Bookshop Cafe. Everyone is welcome.', ev)
 
 # ================================================================ LEARN MORE
-lm = '<div class="progress" aria-hidden="true"><i></i></div>' + phero(None, [('index.html','Home'),(None,'Learn More')], 'An introduction',
+lm = '<div class="progress" aria-hidden="true"><i></i></div>' + phero(None, [('index.html','Home'),(None,'Explore the faith')], 'An introduction',
   'The greatest love story <em>ever told</em>', 'A gentle, no-pressure introduction to the Christian faith and the Orthodox tradition. No prior knowledge assumed.', cls='plain lmhero').replace(
   '<div class="wrap" style="width:100%"><div class="content">', '<div class="lmart" aria-hidden="true"><img src="img/learn-more-cross.webp" width="720" height="885" alt="" fetchpriority="high"></div><div class="wrap" style="width:100%"><div class="content">', 1)
 lm += f'''
