@@ -106,4 +106,33 @@
       y=Math.max(-room,Math.min(room,y)); img.style.transform='translate3d(0,'+y.toFixed(1)+'px,0)'; }); }
   window.addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(px);} },{passive:true});
   window.addEventListener('resize',px); px();
+
+  /* Instagram strip: swaps the placeholder photos for the latest posts when a Behold feed ID is set in settings.json.
+     Any failure leaves the placeholders in place. */
+  $$('[data-ig-feed]').forEach(function(sec){
+    var id = sec.getAttribute('data-ig-feed'); if(!id) return;
+    var grid = $('.igrid', sec), n = parseInt(sec.getAttribute('data-ig-count'),10) || 6, done = false;
+    function load(){
+      if(done) return; done = true; grid.classList.add('loading');
+      fetch('https://feeds.behold.so/' + encodeURIComponent(id)).then(function(r){ if(!r.ok) throw 0; return r.json(); }).then(function(d){
+        var posts = (d.posts || d).filter(function(p){ return p && (p.thumbnailUrl || p.mediaUrl) && p.permalink; }).slice(0, n);
+        if(!posts.length) throw 0;
+        var icon = $('.igi', grid), frag = document.createDocumentFragment();
+        posts.forEach(function(p){
+          var src = (p.sizes && p.sizes.medium && p.sizes.medium.mediaUrl) || p.thumbnailUrl || p.mediaUrl;
+          var alt = (p.prunedCaption || p.caption || 'Photo from Upper Room on Instagram').replace(/\s+/g,' ').slice(0,110);
+          var li = document.createElement('li'), a = document.createElement('a'), im = new Image();
+          a.href = p.permalink; a.target = '_blank'; a.rel = 'noopener';
+          im.src = src; im.alt = alt; im.loading = 'lazy'; im.decoding = 'async';
+          a.appendChild(im);
+          if(icon) a.appendChild(icon.cloneNode(true));
+          li.appendChild(a); frag.appendChild(li);
+        });
+        grid.innerHTML = ''; grid.appendChild(frag);
+      }).catch(function(){}).then(function(){ grid.classList.remove('loading'); });
+    }
+    if('IntersectionObserver' in window){
+      var io = new IntersectionObserver(function(es){ if(es[0].isIntersecting){ io.disconnect(); load(); } }, {rootMargin:'400px'}); io.observe(sec);
+    } else load();
+  });
 })();

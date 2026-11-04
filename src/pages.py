@@ -301,6 +301,7 @@ gal += f'''
     <div class="masonry">{figs}</div>
   </div>
 </section>
+{ig_section('On Instagram', 'More from the shop floor')}
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer"><div style="display:grid;justify-items:center"><img src="" alt=""><p></p></div><button class="x" type="button">Close</button><button class="pv" type="button" aria-label="Previous photo">‹</button><button class="nx" type="button" aria-label="Next photo">›</button></div>'''
 page('gallery.html','Gallery | Inside Upper Room Christian Bookshop Cafe','Photos from inside Upper Room Christian Bookshop Cafe in Ramsgate: the bookshop, the cafe, gifts and our grand opening day.', gal)
 

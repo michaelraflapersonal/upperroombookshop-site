@@ -16,6 +16,20 @@ DIRS = S['links']['google_maps']
 IG = S['contact']['instagram']
 ARR = '<span class="arr" aria-hidden="true">→</span>'
 
+IGF = S.get('instagram_feed', {})
+IG_FALLBACK = [('URM_Bookshop-86.jpg','A barista pouring latte art at the counter'),('URM_Bookshop-68.jpg','Two friends choosing books together'),
+               ('URM_Bookshop-83.jpg','An icon on the shelves beside a row of commentaries'),('URM_Bookshop-40.jpg','Browsing the gift table'),
+               ('URM_Bookshop-20.jpg','Two coffees and a prayer rope'),('URM_Bookshop-76.jpg','Conversation over coffee in the cafe')]
+IG_ICON = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/></svg>'
+def ig_section(eyebrow='Follow along', heading='A little of what we are up to'):
+    n = int(IGF.get('count', 6))
+    tiles = ''.join(f'<li><a href="{IG}" target="_blank" rel="noopener"><img src="img/{f}" alt="{a}" loading="lazy"><span class="igi">{IG_ICON}<span class="sr">View on Instagram</span></span></a></li>' for f, a in IG_FALLBACK[:n])
+    return (f'<section class="band igband" aria-labelledby="ig-h" data-ig-feed="{IGF.get("behold_feed_id","")}" data-ig-count="{n}">'
+            f'<div class="wrap"><div class="igtop rv"><div><span class="eyebrow">{eyebrow}</span><h2 id="ig-h">{heading}</h2>'
+            f'<p class="muted">New arrivals, feast days and Thursday nights at <a href="{IG}" target="_blank" rel="noopener">@upperroombookshop</a>.</p></div>'
+            f'<a class="btn" href="{IG}" target="_blank" rel="noopener">{IG_ICON}<span>Follow on Instagram</span></a></div>'
+            f'<ul class="igrid rv" role="list">{tiles}</ul></div></section>')
+
 FONTS = ('<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
          '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Source+Sans+3:ital,wght@0,400;0,500;1,300;1,400&display=swap">\n'
          '<meta name="color-scheme" content="light dark">\n<link rel="stylesheet" href="/site.css">\n<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">\n<link rel="icon" type="image/png" sizes="192x192" href="/img/favicon.png">\n<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">')
@@ -140,7 +154,7 @@ open(os.path.join(OUT,'site.css'),'w').write(_min_css(css))
 open(os.path.join(OUT,'site.js'),'w').write(open(os.path.join(B,'site.js')).read())
 
 # ---------------------------------------------------------------- HOME
-hb = open(os.path.join(B,'home-body.html')).read()
+hb = open(os.path.join(B,'home-body.html')).read().replace('<!--IG-->', ig_section())
 main = hb[hb.index('<main id="top">')+len('<main id="top">'):hb.index('</main>')]
 rep = [
  ('<a class="btn" href="#visit">Find us', '<a class="btn" href="visit.html">Find us'),

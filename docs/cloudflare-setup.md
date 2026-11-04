@@ -41,6 +41,17 @@ Test: send a message from `/contact` on the workers.dev address. It should arriv
 
 Until then the Narellan page asks people to email info@ instead. Tip: create a tag or group called "Narellan opening" in Mailchimp so you know who to email on opening day.
 
-## 5. Analytics (optional, free)
+## 5. Instagram feed (free)
+
+The home and gallery pages have a "Follow along" strip. It shows six placeholder photos until a live feed is connected, then shows the latest posts. It costs nothing.
+
+1. The Instagram account must be a **Business or Creator** (professional) account. It is free to switch in Instagram: Settings → Account type and tools.
+2. Sign up at behold.so (free plan, one feed) and choose **Create feed → Instagram**. Connect @upperroombookshop and pick a grid layout (the layout doesn't matter; the site uses its own styling).
+3. In Behold, open the feed and copy its **Feed URL**, which looks like `https://feeds.behold.so/AbCdEf123`. The part after the last `/` is the feed ID.
+4. Paste the ID into `content/settings.json` → `instagram_feed.behold_feed_id` and commit. The strip updates in about a minute.
+
+If Behold is ever down, or the ID is empty, the strip quietly keeps the placeholder photos, which link to the Instagram page.
+
+## 6. Analytics (optional, free)
 
 Cloudflare → **Web Analytics → Add a site**. It's free, and needs no cookies or banner.
