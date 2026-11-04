@@ -243,7 +243,7 @@ body:has(.lmhero) header.site:not(.solid) .findus{background:#3B3A36;color:#F4F2
   .phero.lmhero{background:radial-gradient(ellipse 55% 65% at 78% 55%,rgba(234,227,214,.13) 0%,rgba(234,227,214,0) 70%),#3B3A36;color:#F4F2EE}
   .lmhero h1,.lmhero .lede,.lmhero .crumbs,.lmhero .crumbs a{color:#F4F2EE}
   .lmhero h1 em,.lmhero .eyebrow{color:#D4B26A}
-  .lmart::before{content:"";position:absolute;inset:-2% -3%;background:rgba(234,227,214,.96);border-radius:22px;box-shadow:0 0 26px 16px rgba(234,227,214,.5),0 30px 60px -30px rgba(0,0,0,.6)}
+  .lmart::before{content:"";position:absolute;inset:-18px -24px;background:rgba(234,227,214,.95);border-radius:36px;filter:blur(15px)}
   .lmart img{position:relative}
   body:has(.lmhero) header.site:not(.solid){--hdr-fg:#F4F2EE}
   body:has(.lmhero) header.site:not(.solid) .logo .lo{display:none}
