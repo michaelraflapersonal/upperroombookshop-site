@@ -12,5 +12,7 @@
     "not_found_handling": "404-page",
     "run_worker_first": ["/api/*", "/books/*"]
   },
-  "observability": { "enabled": true }
+  "observability": { "enabled": true },
+  // Needed for Workers Builds previews on pull requests (npx wrangler preview).
+  "previews": {}
 }
