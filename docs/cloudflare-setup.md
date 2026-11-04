@@ -81,3 +81,32 @@ Past dates can stay; they do nothing. Upcoming ones also appear as a short "Spec
 ## 8. Analytics (optional, free)
 
 Cloudflare → **Web Analytics → Add a site**. It's free, and needs no cookies or banner.
+
+## 9. Books & gifts catalogue (live from Square)
+
+The `/books` pages show every book and gift from Square: titles, covers, prices, stock at Ramsgate and the shelf spot. The Worker reads Square (it never changes anything there), keeps a copy for 10 minutes, and falls back to the last good copy for up to a week if Square is down. Until the token below is set, `/books` shows a friendly "call us" message.
+
+**Connect Square (once):**
+1. Go to developer.squareup.com and sign in with the shop's Square account. **Applications → +** and name it "Upper Room website".
+2. Open the app, switch the toggle at the top to **Production**, then **Credentials → Production Access token → Show**, and copy it.
+3. Cloudflare → Workers & Pages → `upperroombookshop-site` → **Settings → Variables and Secrets → Add**: type **Secret**, name `SQUARE_ACCESS_TOKEN`, paste the token, **Deploy**.
+4. Open `/books`. The first visit takes a few seconds while it reads Square; after that it's instant.
+
+The token can see everything in the Square account, so keep it only in Cloudflare (never in GitHub, email or chat). The website code only reads the catalogue and stock. To revoke or replace it, use the same Credentials page in Square, then update the secret.
+
+**What appears:** items in the Square categories named in `content/catalogue.json` (`square_categories`: Books and Gifts, including their subcategories), at the Ramsgate location, and not set to hidden online. Each Books subcategory becomes a section. Archived items are left out.
+
+**How to fill items in Square so they look their best:**
+- **Shelf spot:** put it in the variation SKU as `Section · Column 6, Rows 2–5` (several spots: `… and Column 10, Rows 4–5`). The site draws the bookcase from these.
+- **Description:** first line is a one-sentence summary, then a paragraph, then optional lines `Best for: …`, `Level: Easy read …` and `Tradition: …`. "Level" and "Tradition" become the filters.
+- **ISBN:** in the variation's UPC/GTIN field.
+- **Author:** the site reads it from the title ("… by Name") or the description ("By Name."). For full control, add an item custom attribute called **Author** in Square.
+- **Cover:** the item's first image. Sharp, upright covers look best; very small images (under about 500px) look soft.
+
+**Words around the catalogue** (section blurbs, the "What brings you in?" paths, hold and order notes, the shelf-map notes) are in `content/catalogue.json`.
+
+**Hold and order requests** use the contact form's Turnstile and Resend settings (sections 2 and 3). They arrive at info@ with a subject like "Please put aside: Title (from Name)", with the ISBN, price and shelf spot inside. Reply to the email to answer.
+
+**Pull-request previews don't share the live site's secrets.** A secret added under Production is not seen by previews. To test on a preview, switch Variables and Secrets to **Previews Base** and add `SQUARE_ACCESS_TOKEN` there too. It applies to previews created after that, so push a new branch or ask Claude to recreate the preview.
+
+**If `/books` says the shelves aren't loading**, open `/api/catalogue` on the same site. The `reason` it shows tells you why: `no_token` means this deployment can't see the secret, and `square_401_UNAUTHORIZED` means the token is wrong, revoked, or a Sandbox token. For more detail, check Worker → Logs. "Square … 401" means the token is wrong or revoked. "Exceeded CPU" means the catalogue has grown past what the Workers Free plan allows in one go (10 ms of processing per visit); the Workers Paid plan (US$5 a month) removes that limit.

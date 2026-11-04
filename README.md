@@ -8,10 +8,12 @@ A small Python script (no extra packages) builds plain HTML pages into `dist/`. 
 
 | Folder / file | What it is |
 |---|---|
+| `content/catalogue.json` | Words around the Books & gifts pages (section blurbs, hold notes). The books themselves come live from Square |
 | `content/settings.json` | **The things staff change:** opening hours, phone and email, Coffee with Christ time, Narellan status, announcement banner, gift card, donate and Google Maps links |
 | `src/` | Page templates, styles and scripts (`build.py` runs everything) |
 | `static/img/` | Photos and logos, copied to `/img/` on the site |
-| `functions/api/contact.js` | Contact form handler: Turnstile spam check, then emails info@ through Resend |
+| `functions/api/contact.js` | Contact form handler: Turnstile spam check, then emails info@ through Resend. Also carries hold and order requests from Books & gifts |
+| `worker/catalogue.js` | Reads books, gifts and stock from Square for `/books` (see `docs/cloudflare-setup.md`, section 9) |
 | `src/_redirects` | Old Squarespace addresses that forward to the new pages |
 | `src/_headers` | Security and caching headers |
 | `docs/` | Setup and go-live guides |
@@ -26,6 +28,7 @@ All of these are in `content/settings.json`. Edit the file on GitHub (pencil ico
 - **Holiday hours:** add entries to `ramsgate.special_hours` (see `docs/cloudflare-setup.md`, section 7).
 - **Google reviews:** `reviews.curated` or the live feed (section 6).
 - **Instagram feed:** `instagram_feed.behold_feed_id` (see `docs/cloudflare-setup.md`, section 5).
+- **Books & gifts:** add or change books in Square; the site picks them up within 10 minutes. Section blurbs and notes are in `content/catalogue.json` (section 9).
 - **Narellan:** `status` (e.g. "Opening soon"), `hours`, and `mailchimp_form_action` (see `docs/cloudflare-setup.md`).
 
 ## Build locally
@@ -37,4 +40,4 @@ npx wrangler dev               # builds and serves it with the redirects and the
 
 ## Pages and addresses
 
-`/` · `/visit` · `/visit/ramsgate` · `/visit/narellan` · `/coffee-with-christ` · `/events` · `/explore-the-faith` · `/gallery` · `/support` · `/contact`
+`/` · `/visit` · `/visit/ramsgate` · `/visit/narellan` · `/books` (and `/books/all`, `/books/<section>`, `/books/item/<id>`) · `/coffee-with-christ` · `/events` · `/explore-the-faith` · `/gallery` · `/support` · `/contact`

@@ -52,7 +52,7 @@ FONTS = ('<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n
 
 exec(open(os.path.join(B,'content.py')).read())
 
-NAV = [('index.html','Home'),('visit.html','Visit'),('events.html','Events'),('learn-more.html','Explore the faith'),('contact.html','Contact')]
+NAV = [('index.html','Home'),('visit.html','Visit'),('books.html','Books & gifts'),('events.html','Events'),('learn-more.html','Explore the faith'),('contact.html','Contact')]
 
 def header(cur):
     items = []
@@ -84,6 +84,7 @@ def header(cur):
     <li><a href="visit.html">Visit</a></li>
     <li class="sub"><a href="ramsgate.html">Ramsgate</a></li>
     <li class="sub"><a href="narellan.html">Narellan</a></li>
+    <li><a href="books.html">Books &amp; gifts</a></li>
     <li><a href="events.html">Events</a></li>
     <li class="sub"><a href="coffee-with-christ.html">Coffee with Christ</a></li>
     <li><a href="learn-more.html">Explore the faith</a></li>
@@ -98,7 +99,7 @@ FOOTER = f'''<footer id="foot">
   <div class="wrap cols">
     <div style="display:grid;gap:20px;align-content:start"><img class="flogo" src="img/logo-white.png" alt="Upper Room Christian Bookshop Cafe"><p class="tag">A not-for-profit ministry of the Coptic Orthodox Church, open to everyone.</p></div>
     <div><h2 class="fh">Ramsgate</h2><p>219 Rocky Point Rd<br>Ramsgate NSW 2217</p><div class="hours" style="margin-top:12px">%%HOURS_GRID%%</div></div>
-    <div><h2 class="fh">Explore</h2><div class="sitemap"><a href="visit.html">Visit</a><a href="coffee-with-christ.html">Coffee with Christ</a><a href="events.html">Events</a><a href="learn-more.html">Explore the faith</a><a href="gallery.html">Gallery</a><a href="support.html">Gift cards &amp; donations</a></div></div>
+    <div><h2 class="fh">Explore</h2><div class="sitemap"><a href="visit.html">Visit</a><a href="books.html">Books &amp; gifts</a><a href="coffee-with-christ.html">Coffee with Christ</a><a href="events.html">Events</a><a href="learn-more.html">Explore the faith</a><a href="gallery.html">Gallery</a><a href="support.html">Gift cards &amp; donations</a></div></div>
     <div><h2 class="fh">Contact</h2><p><a href="tel:%%PHONE_TEL%%">%%PHONE%%</a><br><a href="mailto:%%EMAIL%%">%%EMAIL%%</a><br><a href="{IG}">Instagram</a> · <a href="https://upperroommedia.org/">Upper Room Media</a></p><p style="margin-top:14px"><a href="narellan.html">Narellan: opening soon</a></p></div>
   </div>
   <div class="wrap base"><span>© Upper Room Christian Bookshop Cafe</span></div>
@@ -160,6 +161,7 @@ RAMS_SCHEMA = {"@context":"https://schema.org","@type":["BookStore","CafeOrCoffe
 css = open(os.path.join(B,'site-base.css')).read() + open(os.path.join(B,'extra.css')).read()
 css = css.replace('header:not(.solid) .logo img{filter:brightness(0) invert(1)}','')
 css += open(os.path.join(B,'deploy.css')).read()
+css += open(os.path.join(B,'books.css')).read()
 def _min_css(c):
     c = re.sub(r'/\*.*?\*/', '', c, flags=re.S)
     c = re.sub(r'\s+', ' ', c)
@@ -191,4 +193,5 @@ HOME_SCHEMA = {"@context":"https://schema.org","@type":"Organization","@id":"htt
 page('index.html','Upper Room | Christian Bookshop &amp; Cafe, Ramsgate Sydney','A welcoming Christian bookshop and cafe in Ramsgate, Sydney, with a weekly Bible study. A not-for-profit ministry of the Coptic Orthodox Church, open to all.', main, HOME_SCHEMA)
 
 exec(open(os.path.join(B,'pages.py')).read())
+exec(open(os.path.join(B,'books.py')).read())
 exec(open(os.path.join(B,'deploy.py')).read())
