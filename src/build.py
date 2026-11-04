@@ -73,7 +73,7 @@ FOOTER = f'''<footer id="foot">
   </div>
   <div class="wrap base"><span>© Upper Room Christian Bookshop Cafe</span></div>
 </footer>
-<script src="site.js"></script>'''
+<script src="/site.js"></script>'''
 
 def phero(img, crumbs, eyebrow, h1, lede, extra='', cls='', pos='center', mob=None):
     pic = ''

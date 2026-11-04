@@ -75,12 +75,14 @@ table.hrs td{text-align:right}
 table.hrs tr.is-today th,table.hrs tr.is-today td{color:var(--link);font-weight:500}
 table.hrs tr.is-today th::after{content:"Today";font:500 11px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;margin-left:12px;color:var(--gold)}
 
-/* Live map */
-.mapembed{margin:0;display:grid;gap:14px}
-.mapframe{position:relative;aspect-ratio:4/3;background:var(--bg-alt);border:1px solid var(--line);overflow:hidden}
+/* Live map: one bordered card, map on top, address and link underneath */
+.mapembed{display:block;margin:0;width:100%;border:1px solid var(--line);background:var(--card)}
+.mapframe{position:relative;width:100%;aspect-ratio:4/3;background:var(--bg-alt);border-bottom:1px solid var(--line);overflow:hidden}
 .mapframe iframe{position:absolute;inset:0;width:100%;height:100%;border:0;filter:sepia(.18) saturate(.8) hue-rotate(-8deg)}
-.mapembed figcaption{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;font:400 15px/1.4 var(--sans);color:var(--muted)}
-.mapembed figcaption span{flex:1 1 100%}
+.mapembed figcaption{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px 24px;padding:18px 20px}
+.mapembed figcaption span{flex:1 1 220px;font:400 clamp(18px,1.6vw,21px)/1.3 var(--serif);color:var(--fg)}
+.mapembed figcaption .tlink{flex:none;white-space:nowrap}
+@media (max-width:860px){.mapframe{aspect-ratio:1/1;max-height:420px}}
 @media (prefers-color-scheme:dark){.mapframe iframe{filter:invert(.92) hue-rotate(180deg) saturate(.55) sepia(.2) brightness(.95) contrast(.95)}}
 @keyframes drop{from{transform:translate(-50%,-140%);opacity:0}to{transform:translate(-50%,-100%);opacity:1}}
 
@@ -252,4 +254,3 @@ body:has(.lmhero) header.site:not(.solid) .findus{background:#3B3A36;color:#F4F2
 .tlink::before,footer a::before,.copy-btn::before{content:"";position:absolute;inset:-12px -8px;z-index:1}
 footer a{display:inline-block}
 @media (pointer:coarse){.crumbs a::before{content:"";position:absolute;inset:-14px -6px}.crumbs a{position:relative}}
-.mapembed figcaption .tlink{white-space:nowrap;flex:none}
