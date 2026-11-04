@@ -25,7 +25,7 @@ visit += f'''
     <div class="sechead rv"><span class="eyebrow">Our locations</span><h2>Choose your Upper Room</h2><p>Both are open to everyone, whatever your background. Drop in for a book, a coffee, or both.</p></div>
     <div class="locs">
       <article class="loc rv">
-        <div class="frame still"><img src="img/URM_Bookshop-99.jpg" alt="Upper Room Christian Bookshop Cafe storefront on Rocky Point Rd, Ramsgate" loading="lazy"></div>
+        <div class="frame still"><img src="img/URM_Bookshop-81.jpg" alt="The Upper Room sign above the entrance on Rocky Point Rd, Ramsgate" loading="lazy"></div>
         <div class="body">
           <span class="status" data-hours="%%HOURS_DATA%%"><i aria-hidden="true"></i><span>%%HOURS_SUMMARY%%</span></span>
           <h3 class="serif">Ramsgate</h3>
@@ -65,7 +65,7 @@ page('visit.html','Visit Upper Room | Christian Bookshops &amp; Cafes in Sydney'
 
 # ================================================================ RAMSGATE
 rams = phero('cafe-12.jpg', [('index.html','Home'),('visit.html','Visit'),(None,'Ramsgate')], 'Christian bookshop &amp; cafe · Ramsgate',
-  'Upper Room, <em>Ramsgate</em>', 'Timber shelves, warm light and good coffee on Rocky Point Road, a short drive from Sans Souci, Sandringham and Sylvania.', mob='URM_Bookshop-64.jpg')
+  'Upper Room, <em>Ramsgate</em>', 'Timber shelves, warm light and good coffee on Rocky Point Road, a short drive from Sans Souci, Sandringham and Sylvania.', mob='URM_Bookshop-12.jpg')
 rams += f'''
 <section style="background:var(--bg)">
   <div class="wrap today">
@@ -83,7 +83,7 @@ rams += f'''
 </section>
 <section class="band alt">
   <div class="wrap split">
-    {fr('URM_Bookshop-76.jpg','Guests sharing coffee and conversation at the Ramsgate cafe','tall','0.07')}
+    {fr('URM_Bookshop-49.jpg','A guest sharing a book she has found with a friend','tall','0.07')}
     <div class="prose rv">
       <span class="eyebrow">At this location</span>
       <h2>A bookshop, a cafe, and a place to stay</h2>
@@ -107,10 +107,10 @@ rams += f'''
   <div class="wrap">
     <div class="inhead rv"><div style="display:grid;gap:14px"><span class="eyebrow">Inside Ramsgate</span><h2>Have a look around</h2></div><a class="tlink" href="gallery.html">See the full gallery {ARR}</a></div>
     <div class="prow">
-      {fr('URM_Bookshop-81.jpg','The Upper Room sign above the Ramsgate entrance','','0.05')}
-      {fr('URM_Bookshop-12.jpg','Bookshelves around the illuminated Upper Room logo','','0.08')}
       {fr('URM_Bookshop-78.jpg','The cafe counter with pastries and cakes','','0.05')}
-      {fr('URM_Bookshop-70.jpg','A smile at the counter while ordering','','0.08')}
+      {fr('URM_Bookshop-9.jpg','Shelves of Christian spirituality, commentaries and prayer books','','0.08')}
+      {fr('URM_Bookshop-11.jpg','Prayer bracelets and crosses on the gift table','','0.05')}
+      {fr('URM_Bookshop-55.jpg','Two visitors looking closely at an icon of St Michael','','0.08')}
     </div>
   </div>
 </section>
@@ -125,7 +125,7 @@ exec(open(os.path.join(B,'narellan.py')).read())
 CWC_SCHEMA = {"@context":"https://schema.org","@type":"Event","name":"Coffee with Christ: Thursday Bible study","description":"A relaxed weekly Bible study held in the cafe. No church background needed, no booking required.","eventSchedule":{"@type":"Schedule","byDay":"https://schema.org/"+CWC["day"],"startTime":CWC["start"],"endTime":CWC["end"],"repeatFrequency":"P1W","scheduleTimezone":"Australia/Sydney"},"eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode","isAccessibleForFree":True,"startDate":next_cwc()+"T"+CWC["start"],"endDate":next_cwc()+"T"+CWC["end"],"eventStatus":"https://schema.org/EventScheduled","location":{"@type":"Place","@id":"https://www.upperroombookshop.com/visit/ramsgate#location","name":"Upper Room Christian Bookshop Cafe, Ramsgate","address":{"@type":"PostalAddress","streetAddress":"219 Rocky Point Rd","addressLocality":"Ramsgate","addressRegion":"NSW","postalCode":"2217","addressCountry":"AU"}},"organizer":ORG}
 cwc = phero("URM_Bookshop-5-2.jpg", [("index.html","Home"),("events.html","Events"),(None,"Coffee with Christ")], '%%CWC_EVERY%% · %%CWC_WHERE%%',
   'Coffee with <em>Christ</em>', 'A relaxed weekly Bible study, held around a table in the cafe. No church background needed, no booking required. Come as you are, and bring your questions.',
-  f'<div style="display:flex;gap:24px;flex-wrap:wrap;align-items:center"><a class="btn" href="ramsgate.html">How to find us {ARR}</a><a class="tlink" href="narellan.html" style="color:#F4F2EE">Coming to Narellan too {ARR}</a></div>', mob='URM_Bookshop-22.jpg')
+  f'<div style="display:flex;gap:24px;flex-wrap:wrap;align-items:center"><a class="btn" href="ramsgate.html">How to find us {ARR}</a><a class="tlink" href="narellan.html" style="color:#F4F2EE">Coming to Narellan too {ARR}</a></div>', mob='URM_Bookshop-26.jpg')
 cwc += f'''
 <section class="band">
   <div class="wrap">
@@ -139,7 +139,7 @@ cwc += f'''
 </section>
 <section class="band alt">
   <div class="wrap split">
-    {fr('URM_Bookshop-22.jpg','A guest smiling over a book and coffee','tall','0.07')}
+    {fr('URM_Bookshop-31.jpg','A guest smiling at a cafe table, with staff at the counter behind','tall','0.07')}
     <div class="prose rv">
       <span class="eyebrow">Who it's for</span>
       <h2>For the curious, the faithful, and everyone in between</h2>
@@ -167,14 +167,14 @@ cwc += f'''
 page('coffee-with-christ.html','Coffee with Christ | Thursday Bible Study Cafe, Sydney','A relaxed Thursday night Bible study in the cafe at Upper Room, Ramsgate, 7 to 8pm. No church background needed, no booking required.', cwc, CWC_SCHEMA)
 
 # ================================================================ EVENTS
-ev = phero('URM_Bookshop-40.jpg', [('index.html','Home'),(None,'Events')], 'Events',
+ev = phero('cafe-58.jpg', [('index.html','Home'),(None,'Events')], 'Events',
   'Gather at <em>Upper Room</em>', 'A weekly Bible study in the cafe, and other gatherings shared on Instagram as they come up. Everyone is welcome.')
 ev += f'''
 <section class="band">
   <div class="wrap">
     <div class="sechead rv"><span class="eyebrow">Every week</span><h2>Coffee with Christ</h2></div>
     <a class="nextcard rv" href="coffee-with-christ.html" style="grid-template-columns:auto 1fr auto;gap:clamp(20px,4vw,48px)">
-      <div class="frame still" style="width:clamp(110px,16vw,200px);aspect-ratio:1"><img src="img/URM_Bookshop-25.jpg" alt="" loading="lazy"></div>
+      <div class="frame still" style="width:clamp(110px,16vw,200px);aspect-ratio:1"><img src="img/URM_Bookshop-20.jpg" alt="" loading="lazy"></div>
       <div style="display:grid;gap:8px"><h3 class="serif">Thursday Bible study</h3><p class="muted">%%CWC_EVERY%% · %%CWC_WHERE%%. Relaxed, no booking needed.</p></div>
       <span class="arr" aria-hidden="true">→</span>
     </a>
@@ -190,7 +190,7 @@ page('events.html','Events | Upper Room Christian Bookshop Cafe','A weekly Thurs
 
 # ================================================================ LEARN MORE
 lm = '<div class="progress" aria-hidden="true"><i></i></div>' + phero('URM_Bookshop-32.jpg', [('index.html','Home'),(None,'Learn More')], 'An introduction',
-  'The greatest love story <em>ever told</em>', 'A gentle, no-pressure introduction to the Christian faith and the Orthodox tradition. No prior knowledge assumed.', mob='URM_Bookshop-26.jpg')
+  'The greatest love story <em>ever told</em>', 'A gentle, no-pressure introduction to the Christian faith and the Orthodox tradition. No prior knowledge assumed.', mob='URM_Bookshop-92.jpg')
 lm += f'''
 <section class="band" style="padding-top:clamp(56px,7vw,96px)">
   <div class="wrap reading">
@@ -313,9 +313,9 @@ sup = phero('URM_Bookshop-87.jpg', [('index.html','Home'),(None,'Support')], 'Su
 sup += f'''
 <section class="band">
   <div class="wrap tiers">
-    <article class="tier rv"><div class="frame still"><img src="img/URM_Bookshop-91.jpg" alt="A gift hamper of books, candles and chocolates" loading="lazy"></div>
+    <article class="tier rv"><div class="frame still"><img src="img/URM_Bookshop-21.jpg" alt="A latte and almond croissant at the Upper Room cafe" loading="lazy"></div>
       <div class="body"><span class="eyebrow">Gift cards</span><h2 style="font-size:clamp(28px,3vw,38px)">The gift of a good story and a great coffee</h2><p class="muted">Spend in store on books, gifts and the cafe. Delivered by email, ready to give.</p><p><a class="btn" href="{GIFT}">Buy a gift card {ARR}</a></p></div></article>
-    <article class="tier rv"><div class="frame still"><img src="img/URM_Bookshop-27.jpg" alt="Friends talking over coffee by the window" loading="lazy"></div>
+    <article class="tier rv"><div class="frame still"><img src="img/URM_Bookshop-95.jpg" alt="A well-stocked shelf of children's Bibles" loading="lazy"></div>
       <div class="body"><span class="eyebrow">Donate</span><h2 style="font-size:clamp(28px,3vw,38px)">Keep the shelves stocked and the doors open</h2><p class="muted">A one-off gift of any size supports the ministry and everyone it welcomes. All donations are tax deductible.</p><p><a class="btn" href="{DONATE}">Make a donation {ARR}</a></p></div></article>
   </div>
 </section>

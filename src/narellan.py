@@ -22,7 +22,7 @@ nar += f'''
       <p class="lead">More than a bookshop, Upper Room is a place of encounter. A place to pause, reflect and connect, whether through quiet reading, a coffee and conversation, or a moment of stillness in a busy world.</p>
       <p>God willing, St Abraam Church will soon open Upper Room in Narellan, bringing a Christian bookshop and cafe to Sydney's South West. Like Ramsgate, it will be a not-for-profit ministry of the Coptic Orthodox Church, open to everyone.</p>
     </div>
-    {fr('URM_Bookshop-64.jpg','Inside Upper Room Ramsgate, the first Upper Room','tall','0.07')}
+    {fr('URM_Bookshop-2-2.jpg','The Upper Room logo on the timber shelves at Ramsgate','tall','0.07')}
   </div>
   <p class="wrap muted" style="font-size:14px;margin-top:14px;text-align:right">Photo: our Ramsgate shop. Narellan photos to come once it opens.</p>
 </section>
