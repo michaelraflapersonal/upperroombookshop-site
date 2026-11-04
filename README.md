@@ -23,6 +23,8 @@ All of these are in `content/settings.json`. Edit the file on GitHub (pencil ico
 - **Opening hours:** `ramsgate.hours`. Times are 24-hour (`"16:00"`). Set `"closed": true` for a closed day. Also update `hours_summary` (the short line shown before the page knows the time, e.g. "Mon–Sat from 7am").
 - **Announcement banner:** set `announcement.show` to `true` and write the `text`. Optional `link_text` and `link_url`. Set `show` back to `false` to remove it.
 - **Coffee with Christ:** `day` (full day name) and `start` / `end` times. If the day changes, some sentences on the Coffee with Christ and Ramsgate pages also mention Thursday, so ask for those to be updated too.
+- **Holiday hours:** add entries to `ramsgate.special_hours` (see `docs/cloudflare-setup.md`, section 7).
+- **Google reviews:** `reviews.curated` or the live feed (section 6).
 - **Instagram feed:** `instagram_feed.behold_feed_id` (see `docs/cloudflare-setup.md`, section 5).
 - **Narellan:** `status` (e.g. "Opening soon"), `hours`, and `mailchimp_form_action` (see `docs/cloudflare-setup.md`).
 

@@ -52,6 +52,32 @@ The home and gallery pages have a "Follow along" strip. It shows six placeholder
 
 If Behold is ever down, or the ID is empty, the strip quietly keeps the placeholder photos, which link to the Instagram page.
 
-## 6. Analytics (optional, free)
+## 6. Google reviews strip
+
+The home and Ramsgate pages have a "What people say about us" strip with a link to read and leave reviews on Google. Two ways to fill it with reviews:
+
+**A. Live from Google (automatic).** Needs a Google Cloud project with billing switched on (Google asks for a card even though the usage here is tiny: the site asks Google at most twice a day and caches the answer).
+1. Google Cloud console → create a project → enable **Places API (New)**.
+2. Credentials → Create API key → restrict it to *Places API (New)*.
+3. Find the shop's Place ID with Google's "Place ID Finder" (search "Upper Room Christian Bookshop Cafe Ramsgate"). It starts with `ChIJ`.
+4. In the Worker → Settings → Variables and Secrets add `GOOGLE_PLACES_API_KEY` (Secret) and `GOOGLE_PLACE_ID` (Text), then redeploy.
+Google returns the rating, review count and up to five recent reviews. The site shows the 4 and 5 star ones.
+
+**B. Hand-picked (free, no keys).** In `content/settings.json` under `reviews.curated`, add real reviews you have permission to show: `{"author": "Name", "rating": 5, "text": "…", "when": "October 2026"}`. Optionally set `reviews.write_review_url` to the shop's "Write a review" link.
+
+If neither is set, the strip shows just the Google buttons.
+
+## 7. Opening hours that update themselves
+
+The "Open now · until 4pm" line is worked out in the visitor's browser from `ramsgate.hours`, always in Sydney time. For public holidays or one-off changes, add to `ramsgate.special_hours` in `content/settings.json`:
+
+```
+{ "date": "2026-12-25", "label": "Christmas Day", "closed": true }
+{ "date": "2026-12-24", "label": "Christmas Eve", "open": "07:00", "close": "12:00" }
+{ "date": "2026-12-27", "until": "2027-01-02", "label": "Summer break", "closed": true }
+```
+Past dates can stay; they do nothing. Upcoming ones also appear as a short "Special hours" line under the hours table.
+
+## 8. Analytics (optional, free)
 
 Cloudflare → **Web Analytics → Add a site**. It's free, and needs no cookies or banner.

@@ -2,7 +2,8 @@
 
 HRS_TABLE = '''<table class="hrs"><caption class="eyebrow" style="text-align:left;caption-side:top;padding-bottom:16px">Opening hours</caption><tbody>
 %%HOURS_TABLE_ROWS%%</tbody></table>
-<p class="muted" style="font-size:15px;margin-top:14px">%%HOURS_NOTE%%</p>'''
+<p class="muted" style="font-size:15px;margin-top:14px">%%HOURS_NOTE%%</p>
+<p class="muted hrs-special" data-special-note hidden></p>'''
 
 MAP_SRC = "https://www.google.com/maps?q=219+Rocky+Point+Rd,+Ramsgate+NSW+2217&hl=en&z=16&output=embed"
 def mapcard(label, href):
@@ -23,7 +24,7 @@ visit += f'''
       <article class="loc rv">
         <div class="frame still"><img src="img/URM_Bookshop-81.jpg" alt="The Upper Room sign above the entrance on Rocky Point Rd, Ramsgate" loading="lazy"></div>
         <div class="body">
-          <span class="status" data-hours="%%HOURS_DATA%%"><i aria-hidden="true"></i><span>%%HOURS_SUMMARY%%</span></span>
+          <span class="status" data-hours="%%HOURS_DATA%%" data-special="%%SPECIAL_DATA%%"><i aria-hidden="true"></i><span>%%HOURS_SUMMARY%%</span></span>
           <h3 class="serif">Ramsgate</h3>
           <p class="addr">219 Rocky Point Rd, Ramsgate NSW 2217</p>
           <div class="hours" style="font-size:15px;color:var(--muted)">%%HOURS_GRID%%</div>
@@ -65,7 +66,7 @@ rams = phero('cafe-12.jpg', [('index.html','Home'),('visit.html','Visit'),(None,
 rams += f'''
 <section style="background:var(--bg)">
   <div class="wrap today">
-    <div><span class="k">Right now</span><span class="v status" data-hours="%%HOURS_DATA%%"><i aria-hidden="true"></i><span>%%HOURS_SUMMARY%%</span></span></div>
+    <div><span class="k">Right now</span><span class="v status" data-hours="%%HOURS_DATA%%" data-special="%%SPECIAL_DATA%%"><i aria-hidden="true"></i><span>%%HOURS_SUMMARY%%</span></span></div>
     <div><span class="k">Address</span><span class="v">219 Rocky Point Rd, Ramsgate NSW 2217</span><button class="copy-btn" type="button" data-copy="219 Rocky Point Rd, Ramsgate NSW 2217">Copy</button></div>
     <div><span class="k">Phone</span><span class="v"><a href="tel:%%PHONE_TEL%%">%%PHONE%%</a></span></div>
     <div><a class="btn" href="{DIRS}">Get directions {ARR}</a></div>
@@ -110,6 +111,7 @@ rams += f'''
     </div>
   </div>
 </section>
+{reviews_section()}
 <section class="band" style="padding-block:clamp(56px,7vw,96px)">
   <div class="wrap"><a class="nextcard rv" href="narellan.html"><div><span class="eyebrow">In Sydney's South West?</span><h3 class="serif" style="margin-top:12px">Upper Room Narellan is opening soon</h3></div><span class="arr" aria-hidden="true">→</span></a></div>
 </section>'''

@@ -21,6 +21,22 @@ IG_FALLBACK = [('URM_Bookshop-86.jpg','A barista pouring latte art at the counte
                ('URM_Bookshop-83.jpg','An icon on the shelves beside a row of commentaries'),('URM_Bookshop-40.jpg','Browsing the gift table'),
                ('URM_Bookshop-20.jpg','Two coffees and a prayer rope'),('URM_Bookshop-76.jpg','Conversation over coffee in the cafe')]
 IG_ICON = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/></svg>'
+
+RV = S.get('reviews', {})
+STAR = '<svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M10 1.6l2.5 5.3 5.8.7-4.3 4 1.1 5.7L10 14.4l-5.1 2.9L6 11.6 1.7 7.6l5.8-.7z"/></svg>'
+def stars(n): return '<span class="stars" role="img" aria-label="%d out of 5 stars">%s</span>' % (n, STAR * int(n))
+def reviews_section(heading='What people say about us'):
+    maps = S['links']['google_maps']
+    write = RV.get('write_review_url') or maps
+    cards = ''.join(f'<li class="rvc">{stars(r.get("rating", 5))}<blockquote>{html.escape(r["text"])}</blockquote>'
+                    f'<p class="who">{html.escape(r["author"])}{(" · " + html.escape(r["when"])) if r.get("when") else ""}</p></li>' for r in RV.get('curated', []))
+    return (f'<section class="band reviews" aria-labelledby="rv-h" data-reviews="/api/reviews">'
+            f'<div class="wrap"><div class="rvtop rv"><div><span class="eyebrow">Kind words</span><h2 id="rv-h">{heading}</h2>'
+            f'<p class="rvsum muted" data-rv-sum><span>Reviews from our Google listing.</span></p></div>'
+            f'<div class="rvcta"><a class="btn" href="{maps}" target="_blank" rel="noopener">Read reviews on Google</a>'
+            f'<a class="tlink" href="{write}" target="_blank" rel="noopener">Leave a review {ARR}</a></div></div>'
+            f'<ul class="rvgrid" role="list"{"" if cards else " hidden"}>{cards}</ul></div></section>')
+
 def ig_section(eyebrow='Follow along', heading='A little of what we are up to'):
     n = int(IGF.get('count', 6))
     tiles = ''.join(f'<li><a href="{IG}" target="_blank" rel="noopener"><img src="img/{f}" alt="{a}" loading="lazy"><span class="igi">{IG_ICON}<span class="sr">View on Instagram</span></span></a></li>' for f, a in IG_FALLBACK[:n])
@@ -154,7 +170,7 @@ open(os.path.join(OUT,'site.css'),'w').write(_min_css(css))
 open(os.path.join(OUT,'site.js'),'w').write(open(os.path.join(B,'site.js')).read())
 
 # ---------------------------------------------------------------- HOME
-hb = open(os.path.join(B,'home-body.html')).read().replace('<!--IG-->', ig_section())
+hb = open(os.path.join(B,'home-body.html')).read().replace('<!--IG-->', reviews_section() + ig_section())
 main = hb[hb.index('<main id="top">')+len('<main id="top">'):hb.index('</main>')]
 rep = [
  ('<a class="btn" href="#visit">Find us', '<a class="btn" href="visit.html">Find us'),

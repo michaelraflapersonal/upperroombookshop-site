@@ -276,3 +276,22 @@ footer a{display:inline-block}
 @media (max-width:900px){.igrid{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:480px){.igrid{grid-template-columns:repeat(2,1fr)}.igtop .btn{width:100%;justify-content:center}}
 @media (prefers-reduced-motion:reduce){.igrid img,.igrid .igi{transition:none}.igrid.loading li{animation:none}}
+.status.closed i{background:var(--muted);box-shadow:none;animation:none}
+.status.soon i{animation:none}
+.hrs-special{font-size:15px;margin-top:10px;padding:10px 14px;border-left:2px solid var(--gold);background:var(--card)}
+
+/* Google reviews strip */
+.reviews{border-top:1px solid var(--line)}
+.rvtop{display:flex;flex-wrap:wrap;gap:20px 40px;align-items:flex-end;justify-content:space-between;margin-bottom:clamp(22px,3.5vw,36px)}
+.rvtop h2{margin:6px 0 10px}
+.rvsum{margin:0;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center}
+.rvsum strong{font:500 20px/1 var(--serif);color:var(--fg)}
+.rvcta{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center}
+.stars{display:inline-flex;gap:2px;color:var(--gold)}
+.rvgrid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,2vw,24px)}
+.rvc{display:grid;gap:14px;align-content:start;padding:clamp(20px,2.4vw,28px);background:var(--card);border:1px solid var(--line)}
+.rvc blockquote{margin:0;font:400 clamp(17px,1.5vw,19px)/1.55 var(--serif);color:var(--fg)}
+.rvc .who{margin:0;font:500 13px/1.3 var(--sans);letter-spacing:.04em;color:var(--muted)}
+.rvc .who a{color:inherit}
+@media (max-width:900px){.rvgrid{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.rvgrid{grid-template-columns:1fr}.rvcta .btn{width:100%;text-align:center}}

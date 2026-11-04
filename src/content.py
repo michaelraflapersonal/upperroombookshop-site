@@ -46,6 +46,20 @@ HOURS_GRID = ''.join(f"<span>{g['short']}</span><span>{'Closed' if g.get('closed
 HOURS_TABLE_ROWS = '\n'.join(
     f'<tr data-d="{" ".join(str(DAYS.index(d)) for d in g["days"])}"><th scope="row">{g["label"]}</th>'
     f'<td>{"Closed" if g.get("closed") else t_long(g["open"]) + " – " + t_long(g["close"])}</td></tr>' for g in HRS)
+import datetime as _dt, html as _html
+SPECIAL = {}
+for _e in S['ramsgate'].get('special_hours', []):
+    _d0 = _dt.date.fromisoformat(_e['date']); _d1 = _dt.date.fromisoformat(_e.get('until', _e['date']))
+    assert _d1 >= _d0, 'settings.json: special_hours "until" is before "date"'
+    _item = {'label': _e.get('label', '')}
+    if _e.get('closed'): _item['closed'] = True
+    else:
+        assert _e.get('open') and _e.get('close'), 'settings.json: a special_hours entry needs closed, or open and close'
+        _item['open'] = float(_dec(_e['open'])); _item['close'] = float(_dec(_e['close']))
+    for _i in range((_d1 - _d0).days + 1):
+        SPECIAL[(_d0 + _dt.timedelta(days=_i)).isoformat()] = _item
+SPECIAL_DATA = _html.escape(json.dumps(SPECIAL, separators=(',', ':')), quote=True)
+
 OPENING_SPEC = [{"@type": "OpeningHoursSpecification", "dayOfWeek": g['days'] if len(g['days']) > 1 else g['days'][0],
                  "opens": g['open'], "closes": g['close']} for g in HRS if not g.get('closed')]
 
@@ -93,7 +107,7 @@ def announcement():
 
 TOKENS = {
     'PHONE': PHONE, 'PHONE_TEL': PHONE_TEL, 'EMAIL': EMAIL,
-    'HOURS_DATA': HOURS_DATA, 'HOURS_SUMMARY': S['ramsgate']['hours_summary'], 'HOURS_GRID': HOURS_GRID,
+    'HOURS_DATA': HOURS_DATA, 'SPECIAL_DATA': SPECIAL_DATA, 'HOURS_SUMMARY': S['ramsgate']['hours_summary'], 'HOURS_GRID': HOURS_GRID,
     'HOURS_TABLE_ROWS': HOURS_TABLE_ROWS, 'HOURS_NOTE': S['ramsgate']['hours_note'],
     'CWC_WHEN': CWC_WHEN, 'CWC_EVERY': CWC_EVERY, 'CWC_WHERE': CWC['where'],
     'NAR_STATUS': NAR['status'], 'NAR_HOURS': NAR['hours'],

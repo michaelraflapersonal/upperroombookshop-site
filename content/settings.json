@@ -57,7 +57,9 @@
         "close": ""
       }
     ],
-    "hours_note": "Public holiday hours may vary. We post any changes on Instagram."
+    "hours_note": "Public holiday hours may vary. We post any changes on Instagram.",
+    "special_hours": [],
+    "_special_hours_help": "Holiday or one-off changes. Each entry: {\"date\": \"2026-12-25\", \"label\": \"Christmas Day\", \"closed\": true} or {\"date\": \"2026-12-24\", \"label\": \"Christmas Eve\", \"open\": \"07:00\", \"close\": \"12:00\"}. Add \"until\": \"2026-12-27\" for a run of days."
   },
   "coffee_with_christ": {
     "day": "Thursday",
@@ -78,5 +80,10 @@
   "instagram_feed": {
     "behold_feed_id": "ru6aWMsPXRDjrwZurQ3M",
     "count": 6
+  },
+  "reviews": {
+    "place_id": "",
+    "write_review_url": "",
+    "curated": []
   }
 }

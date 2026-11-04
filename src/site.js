@@ -21,14 +21,48 @@
   function fmt(x){ return (x%12||12)+(x<12?'am':'pm'); }
   var DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
-  /* Open-now lines */
+  /* Open-now lines: weekly hours plus holiday or one-off changes, always in Sydney time */
+  function ymd(d){ return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2); }
+  function tm(x){ var h=Math.floor(x), m=Math.round((x-h)*60); return (h%12||12)+(m?':'+('0'+m).slice(-2):'')+(h<12?'am':'pm'); }
+  function hoursOn(date, map, special){
+    var s = special[ymd(date)];
+    if(s) return s.closed ? null : [s.open, s.close];
+    return map[date.getDay()] || null;
+  }
+  function parseHours(el){
+    var map = {}; el.dataset.hours.split(',').forEach(function(p){ var d=p.split(':'), h=d[1].split('-'); map[d[0]]=[+h[0],+h[1]]; });
+    var special = {}; try{ special = JSON.parse(el.dataset.special || '{}'); }catch(e){}
+    return {map:map, special:special};
+  }
   $$('[data-hours]').forEach(function(el){
     try{
-      var now=syd(), map={}; el.dataset.hours.split(',').forEach(function(p){var d=p.split(':'),h=d[1].split('-');map[d[0]]=[+h[0],+h[1]];});
-      var d=now.getDay(), t=map[d], h=now.getHours()+now.getMinutes()/60, msg;
-      if(t && h>=t[0] && h<t[1]) msg='Open now · until '+fmt(t[1]);
-      else { var k = (t && h<t[0]) ? 0 : 1; while(!map[(d+k)%7] && k<7) k++; var nd=(d+k)%7; msg='Closed now · opens '+(k===0?'today':k===1?'tomorrow':DAYS[nd])+' '+fmt(map[nd][0]); el.classList.add('closed'); }
+      var H = parseHours(el), now = syd(), today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      var t = hoursOn(today, H.map, H.special), h = now.getHours() + now.getMinutes()/60, msg, cls = '';
+      var sp = H.special[ymd(today)];
+      if(t && h >= t[0] && h < t[1]){
+        if(t[1] - h <= 0.5){ msg = 'Closing soon · until ' + tm(t[1]); cls = 'soon'; }
+        else msg = 'Open now · until ' + tm(t[1]) + (sp && sp.label ? ' (' + sp.label + ')' : '');
+      } else {
+        var k = (t && h < t[0]) ? 0 : 1, nt = null, nd = null;
+        for(; k < 15; k++){ nd = new Date(today.getFullYear(), today.getMonth(), today.getDate() + k); nt = hoursOn(nd, H.map, H.special); if(nt) break; }
+        var when = k === 0 ? 'today' : k === 1 ? 'tomorrow' : DAYS[nd.getDay()];
+        if(k === 0 && nt[0] - h <= 1){ msg = 'Opening soon · ' + tm(nt[0]); cls = 'soon'; }
+        else { msg = (sp && sp.closed ? 'Closed today' + (sp.label ? ' (' + sp.label + ')' : '') : 'Closed now') + ' · opens ' + when + ' ' + tm(nt[0]); cls = 'closed'; }
+      }
+      el.classList.remove('soon','closed'); if(cls) el.classList.add(cls);
       var out = el.querySelector('[data-out]') || el.querySelector('span'); if(out) out.textContent = msg;
+    }catch(e){}
+  });
+  /* Upcoming holiday or special hours, shown under the hours table */
+  $$('[data-special-note]').forEach(function(p){
+    try{
+      var src = $('[data-special]'); if(!src) return;
+      var special = JSON.parse(src.dataset.special || '{}'), now = syd(), start = new Date(now.getFullYear(), now.getMonth(), now.getDate()), lines = [];
+      for(var k = 0; k < 60; k++){
+        var d = new Date(start.getFullYear(), start.getMonth(), start.getDate() + k), s = special[ymd(d)];
+        if(s) lines.push((s.label ? s.label + ', ' : '') + d.toLocaleDateString('en-AU',{weekday:'short',day:'numeric',month:'short'}) + ': ' + (s.closed ? 'closed' : tm(s.open) + ' – ' + tm(s.close)));
+      }
+      if(lines.length){ p.textContent = 'Special hours: ' + lines.join(' · '); p.hidden = false; }
     }catch(e){}
   });
   /* Highlight today in hours tables */
@@ -79,34 +113,6 @@
     document.addEventListener('keydown',function(e){ if(!lb.classList.contains('open')) return; if(e.key==='ArrowLeft') show(cur-1); if(e.key==='ArrowRight') show(cur+1); });
   }
 
-  /* Reading progress + chapter list */
-  var bar=$('.progress i'), chapters=$$('.chapter[id]');
-  if(bar){
-    var onRead=function(){ var h=document.documentElement.scrollHeight-innerHeight; bar.style.transform='scaleX('+(h>0?Math.min(1,scrollY/h):0)+')';
-      var on=null; chapters.forEach(function(c){ if(c.getBoundingClientRect().top<innerHeight*0.4) on=c.id; }); $$('.toc a').forEach(function(a){ a.classList.toggle('on', a.getAttribute('href')==='#'+on); }); };
-    window.addEventListener('scroll',onRead,{passive:true}); onRead();
-  }
-
-  var all=$$('.rv,.intro');
-  if(reduce || !('IntersectionObserver' in window)){ all.forEach(function(el){el.classList.remove('pre');}); return; }
-
-  /* Reveal: only what starts below the first screen is hidden, so the page is complete at rest */
-  all.forEach(function(el){ if(el.getBoundingClientRect().top > innerHeight*0.92) el.classList.add('pre'); });
-  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(!e.isIntersecting) return; var el=e.target;
-      if(el.classList.contains('intro')){ $$('.w',el).forEach(function(w,i){ w.style.transitionDelay=(i*55)+'ms'; }); }
-      el.classList.remove('pre'); io.unobserve(el); }); },{rootMargin:'0px 0px -10% 0px'});
-  all.forEach(function(el){ if(el.classList.contains('pre')) io.observe(el); });
-  setTimeout(function(){ all.forEach(function(el){el.classList.remove('pre');}); }, 9000);
-
-  /* Gentle parallax: photographs drift a little slower than the page, within their frames */
-  var imgs=$$('img[data-speed]'), ticking=false;
-  function px(){ ticking=false; var vh=innerHeight;
-    imgs.forEach(function(img){ var box=img.closest('.frame')||img.parentNode, r=box.getBoundingClientRect(); if(r.bottom<-50||r.top>vh+50) return;
-      var c=(r.top+r.height/2-vh/2), room=(img.offsetHeight-r.height)/2, y=-c*parseFloat(img.dataset.speed);
-      y=Math.max(-room,Math.min(room,y)); img.style.transform='translate3d(0,'+y.toFixed(1)+'px,0)'; }); }
-  window.addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(px);} },{passive:true});
-  window.addEventListener('resize',px); px();
-
   /* Instagram strip: swaps the placeholder photos for the latest posts when a Behold feed ID is set in settings.json.
      Any failure leaves the placeholders in place. */
   $$('[data-ig-feed]').forEach(function(sec){
@@ -136,4 +142,59 @@
       var io = new IntersectionObserver(function(es){ if(es[0].isIntersecting){ io.disconnect(); load(); } }, {rootMargin:'400px'}); io.observe(sec);
     } else load();
   });
+
+  /* Google reviews: use the live rating and reviews when the site's /api/reviews is set up; otherwise keep the built-in markup */
+  $$('[data-reviews]').forEach(function(sec){
+    var url = sec.getAttribute('data-reviews'), done = false;
+    function stars(n){ var s = document.createElement('span'); s.className = 'stars'; s.setAttribute('role','img'); s.setAttribute('aria-label', n + ' out of 5 stars');
+      var tpl = '<svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M10 1.6l2.5 5.3 5.8.7-4.3 4 1.1 5.7L10 14.4l-5.1 2.9L6 11.6 1.7 7.6l5.8-.7z"/></svg>';
+      s.innerHTML = new Array(Math.round(n) + 1).join(tpl); return s; }
+    function load(){
+      if(done) return; done = true;
+      fetch(url).then(function(r){ if(r.status !== 200) throw 0; return r.json(); }).then(function(d){
+        if(!d || !d.reviews || !d.reviews.length) throw 0;
+        var sum = $('[data-rv-sum]', sec);
+        if(sum && d.rating){ sum.innerHTML = ''; var b = document.createElement('strong'); b.textContent = d.rating.toFixed(1); sum.appendChild(b); sum.appendChild(stars(d.rating));
+          var c = document.createElement('span'); c.textContent = (d.count ? d.count + ' ' : '') + 'Google reviews'; sum.appendChild(c); }
+        var grid = $('.rvgrid', sec), frag = document.createDocumentFragment();
+        d.reviews.forEach(function(v){
+          var li = document.createElement('li'); li.className = 'rvc';
+          var q = document.createElement('blockquote'); var t = v.text.replace(/\s+/g,' ').trim(); q.textContent = t.length > 260 ? t.slice(0,257).replace(/\s+\S*$/,'') + '…' : t;
+          var w = document.createElement('p'); w.className = 'who'; w.textContent = v.author + (v.when ? ' · ' + v.when : '');
+          li.appendChild(stars(v.rating)); li.appendChild(q); li.appendChild(w); frag.appendChild(li);
+        });
+        grid.innerHTML = ''; grid.appendChild(frag); grid.hidden = false;
+      }).catch(function(){});
+    }
+    if('IntersectionObserver' in window){ var io = new IntersectionObserver(function(es){ if(es[0].isIntersecting){ io.disconnect(); load(); } }, {rootMargin:'400px'}); io.observe(sec); } else load();
+  });
+
+  /* Reading progress + chapter list */
+  var bar=$('.progress i'), chapters=$$('.chapter[id]');
+  if(bar){
+    var onRead=function(){ var h=document.documentElement.scrollHeight-innerHeight; bar.style.transform='scaleX('+(h>0?Math.min(1,scrollY/h):0)+')';
+      var on=null; chapters.forEach(function(c){ if(c.getBoundingClientRect().top<innerHeight*0.4) on=c.id; }); $$('.toc a').forEach(function(a){ a.classList.toggle('on', a.getAttribute('href')==='#'+on); }); };
+    window.addEventListener('scroll',onRead,{passive:true}); onRead();
+  }
+
+  var all=$$('.rv,.intro');
+  if(reduce || !('IntersectionObserver' in window)){ all.forEach(function(el){el.classList.remove('pre');}); return; }
+
+  /* Reveal: only what starts below the first screen is hidden, so the page is complete at rest */
+  all.forEach(function(el){ if(el.getBoundingClientRect().top > innerHeight*0.92) el.classList.add('pre'); });
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ if(!e.isIntersecting) return; var el=e.target;
+      if(el.classList.contains('intro')){ $$('.w',el).forEach(function(w,i){ w.style.transitionDelay=(i*55)+'ms'; }); }
+      el.classList.remove('pre'); io.unobserve(el); }); },{rootMargin:'0px 0px -10% 0px'});
+  all.forEach(function(el){ if(el.classList.contains('pre')) io.observe(el); });
+  setTimeout(function(){ all.forEach(function(el){el.classList.remove('pre');}); }, 9000);
+
+  /* Gentle parallax: photographs drift a little slower than the page, within their frames */
+  var imgs=$$('img[data-speed]'), ticking=false;
+  function px(){ ticking=false; var vh=innerHeight;
+    imgs.forEach(function(img){ var box=img.closest('.frame')||img.parentNode, r=box.getBoundingClientRect(); if(r.bottom<-50||r.top>vh+50) return;
+      var c=(r.top+r.height/2-vh/2), room=(img.offsetHeight-r.height)/2, y=-c*parseFloat(img.dataset.speed);
+      y=Math.max(-room,Math.min(room,y)); img.style.transform='translate3d(0,'+y.toFixed(1)+'px,0)'; }); }
+  window.addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(px);} },{passive:true});
+  window.addEventListener('resize',px); px();
+
 })();
