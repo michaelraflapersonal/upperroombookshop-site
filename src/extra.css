@@ -217,14 +217,34 @@ footer .sitemap a:hover{text-decoration:underline}
 .dark .btn,.phero .btn{background:#F4F2EE;color:#3B3A36}.dark .btn:hover,.phero .btn:hover{background:#EAE3D6}
 .crumbs{align-items:baseline}
 .crumbs a{padding:0;background:none}
-/* Learn More: watercolour cross framed beside the heading */
-.phero.lmhero{align-items:center;background:#3B3A36}
-.lmgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.62fr);gap:clamp(32px,5vw,72px);align-items:center;padding-block:120px clamp(48px,6vw,80px)}
-.lmgrid .content{padding-block:0;grid-column:1;grid-row:1}
-.lmart{grid-column:2;grid-row:1;margin:0;background:#F4F2EE;border-radius:4px;padding:clamp(14px,2vw,24px);box-shadow:0 1px 0 rgba(212,178,106,.35),0 24px 48px -24px rgba(0,0,0,.45);max-width:420px;justify-self:end;width:100%}
-.lmart img{display:block;width:100%;height:auto;mix-blend-mode:multiply}
-@media (max-width:760px){
-  .lmgrid{grid-template-columns:1fr;padding-block:104px 48px;gap:28px}
-  .lmart{grid-column:1;grid-row:1;justify-self:start;max-width:200px;padding:10px}
-  .lmgrid .content{grid-row:2}
+/* Learn More: watercolour cross on a light hero */
+.phero.lmhero{background:radial-gradient(ellipse 60% 70% at 78% 55%,#EAE3D6 0%,rgba(234,227,214,0) 70%),#F4F2EE;color:#3B3A36;align-items:center;min-height:min(86svh,760px)}
+.lmhero .content{padding-block:150px clamp(56px,7vw,96px);max-width:560px}
+.lmhero h1,.lmhero h1 em{color:#3B3A36}
+.lmhero h1 em{color:#6F7B4A}
+.lmhero .lede{color:#3B3A36}
+.lmhero .eyebrow{color:#6F7B4A}
+.lmhero .crumbs,.lmhero .crumbs a{color:#3B3A36}
+.lmart{position:absolute;top:96px;bottom:24px;right:max(2vw,calc((100vw - 1200px)/2 - 40px));width:min(46vw,580px);display:flex;align-items:center;justify-content:center;pointer-events:none}
+.lmart img{max-width:100%;max-height:100%;width:auto;height:auto;display:block}
+@media (prefers-reduced-motion:no-preference){.lmart img{animation:rise 1.4s var(--ease) .2s both}}
+@media (max-width:860px){
+  .phero.lmhero{flex-direction:column;align-items:stretch;min-height:0}
+  .lmart{position:relative;inset:auto;width:auto;height:min(52vh,380px);margin:96px auto 0;padding-inline:16px}
+  .lmhero .content{padding-block:8px 56px}
+}
+/* the header sits over a light background on this page */
+body:has(.lmhero) header.site:not(.solid){--hdr-fg:#3B3A36}
+body:has(.lmhero) header.site:not(.solid) .logo .lo{display:block}
+body:has(.lmhero) header.site:not(.solid) .logo .lw{display:none}
+body:has(.lmhero) header.site:not(.solid) .findus{background:#3B3A36;color:#F4F2EE}
+@media (prefers-color-scheme:dark){
+  .phero.lmhero{background:radial-gradient(ellipse 55% 65% at 78% 55%,rgba(234,227,214,.13) 0%,rgba(234,227,214,0) 70%),#3B3A36;color:#F4F2EE}
+  .lmhero h1,.lmhero .lede,.lmhero .crumbs,.lmhero .crumbs a{color:#F4F2EE}
+  .lmhero h1 em,.lmhero .eyebrow{color:#D4B26A}
+  .lmart img{background:#F4F2EE;border-radius:6px;padding:clamp(14px,2vw,26px);box-sizing:border-box;box-shadow:0 24px 48px -24px rgba(0,0,0,.5)}
+  body:has(.lmhero) header.site:not(.solid){--hdr-fg:#F4F2EE}
+  body:has(.lmhero) header.site:not(.solid) .logo .lo{display:none}
+  body:has(.lmhero) header.site:not(.solid) .logo .lw{display:block}
+  body:has(.lmhero) header.site:not(.solid) .findus{background:#F4F2EE;color:#3B3A36}
 }
