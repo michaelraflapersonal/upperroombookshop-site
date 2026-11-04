@@ -34,7 +34,7 @@
 - [ ] Send an email to info@ from a personal account, and reply from info@. Both work.
 - [ ] Run upperroombookshop.com through mxtoolbox.com (MX, SPF, DMARC all green).
 - [ ] www and the bare domain both load the new site over https.
-- [ ] Old addresses forward: `/grand-opening` → `/gallery`. `/learn-more` and `/contact` still work.
+- [ ] Old addresses forward: `/grand-opening` → `/gallery`. `/learn-more` forwards to `/explore-the-faith`, and `/contact` still works.
 - [ ] Contact form arrives at info@.
 - [ ] Google Search Console: add the domain if it isn't there, and submit `https://www.upperroombookshop.com/sitemap.xml`.
 - [ ] Update the website link in the Google Business Profile if it changed.

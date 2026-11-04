@@ -10,3 +10,5 @@
 /donate               /support              301
 /gift-cards           /support              301
 /bible-study          /coffee-with-christ   301
+/learn-more           /explore-the-faith    301
+/learn-more/*         /explore-the-faith    301

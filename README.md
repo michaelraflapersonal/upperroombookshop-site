@@ -34,4 +34,4 @@ npx wrangler dev               # builds and serves it with the redirects and the
 
 ## Pages and addresses
 
-`/` · `/visit` · `/visit/ramsgate` · `/visit/narellan` · `/coffee-with-christ` · `/events` · `/learn-more` · `/gallery` · `/support` · `/contact`
+`/` · `/visit` · `/visit/ramsgate` · `/visit/narellan` · `/coffee-with-christ` · `/events` · `/explore-the-faith` · `/gallery` · `/support` · `/contact`
