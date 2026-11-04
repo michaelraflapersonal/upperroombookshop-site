@@ -12,7 +12,7 @@ shutil.copytree(os.path.join(ROOT, 'static'), OUT)
 
 GIFT = S['links']['gift_cards']
 DONATE = S['links']['donate']
-DIRS = "https://www.google.com/maps/dir/?api=1&amp;destination=219%20Rocky%20Point%20Rd%20Ramsgate%20NSW%202217"
+DIRS = S['links']['google_maps']
 IG = S['contact']['instagram']
 ARR = '<span class="arr" aria-hidden="true">→</span>'
 

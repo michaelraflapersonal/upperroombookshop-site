@@ -8,7 +8,7 @@ A small Python script (no extra packages) builds plain HTML pages into `dist/`. 
 
 | Folder / file | What it is |
 |---|---|
-| `content/settings.json` | **The things staff change:** opening hours, phone and email, Coffee with Christ time, Narellan status, announcement banner, gift card and donate links |
+| `content/settings.json` | **The things staff change:** opening hours, phone and email, Coffee with Christ time, Narellan status, announcement banner, gift card, donate and Google Maps links |
 | `src/` | Page templates, styles and scripts (`build.py` runs everything) |
 | `static/img/` | Photos and logos, copied to `/img/` on the site |
 | `functions/api/contact.js` | Contact form handler: Turnstile spam check, then emails info@ through Resend |

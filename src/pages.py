@@ -8,8 +8,8 @@ MAP_SRC = "https://www.google.com/maps?q=219+Rocky+Point+Rd,+Ramsgate+NSW+2217&h
 def mapcard(label, href):
     return (f'<figure class="mapembed rv"><div class="mapframe"><iframe src="{MAP_SRC}" title="Map showing {label}" loading="lazy" '
             f'referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div>'
-            f'<figcaption><span>219 Rocky Point Rd, Ramsgate</span><a class="tlink" href="https://www.google.com/maps/search/?api=1&amp;query=219%20Rocky%20Point%20Rd%20Ramsgate%20NSW%202217" target="_blank" rel="noopener">Open in Google Maps {ARR}</a>'
-            f'<a class="tlink" href="{href}" target="_blank" rel="noopener">Directions</a></figcaption></figure>')
+            f'<figcaption><span>219 Rocky Point Rd, Ramsgate</span><a class="tlink" href="{href}" target="_blank" rel="noopener">Open in Google Maps {ARR}</a>'
+            f'</figcaption></figure>')
 
 # ================================================================ VISIT HUB
 visit = phero('cafe-62.jpg', [('index.html','Home'),(None,'Visit')], 'Visit Upper Room',
