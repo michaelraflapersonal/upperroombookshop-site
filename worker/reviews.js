@@ -25,7 +25,7 @@ export async function onRequestReviews({ request, env, ctx }) {
         when: v.relativePublishTimeDescription || '',
       })),
     });
-    const res = new Response(body, { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=2592000' } });
+    const res = new Response(body, { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=3600, s-maxage=2592000' } });
     ctx.waitUntil(cache.put(cacheKey, res.clone()));
     return res;
   } catch (e) {
