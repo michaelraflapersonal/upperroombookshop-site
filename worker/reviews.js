@@ -1,4 +1,4 @@
-// GET /api/reviews: Google rating and recent reviews, fetched from the Places API and cached for 12 hours.
+// GET /api/reviews: Google rating and recent reviews, fetched from the Places API and cached for 24 hours.
 // Needs two Worker settings: GOOGLE_PLACES_API_KEY (secret) and GOOGLE_PLACE_ID (text).
 // Without them it answers 204 and the page keeps its built-in fallback.
 export async function onRequestReviews({ request, env, ctx }) {
@@ -25,7 +25,7 @@ export async function onRequestReviews({ request, env, ctx }) {
         when: v.relativePublishTimeDescription || '',
       })),
     });
-    const res = new Response(body, { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=43200' } });
+    const res = new Response(body, { headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=86400' } });
     ctx.waitUntil(cache.put(cacheKey, res.clone()));
     return res;
   } catch (e) {
