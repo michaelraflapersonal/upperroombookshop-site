@@ -17,6 +17,8 @@ A small Python script (no extra packages) builds plain HTML pages into `dist/`. 
 | `src/_redirects` | Old Squarespace addresses that forward to the new pages |
 | `src/_headers` | Security and caching headers |
 | `docs/` | Setup and go-live guides |
+| `seo/` | The SEO agent: its instructions (`AGENT.md`), tracked searches (`config.json`), change log and fortnightly reports |
+| `tools/seo/` | Scripts the SEO agent runs: `pull.py` (Search Console and Analytics) and `site_check.py` (on-site checks). Setup: `docs/seo-agent-setup.md` |
 
 ## Common edits
 

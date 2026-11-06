@@ -114,6 +114,19 @@ TOKENS = {
     'TURNSTILE_SITE_KEY': os.environ.get('TURNSTILE_SITE_KEY', '1x00000000000000000000AA'),  # Cloudflare's always-pass test key
 }
 
+# Google Analytics 4: set analytics.ga4_id in settings.json (G-XXXXXXX) to switch it on.
+GA4_ID = ((S.get('analytics') or {}).get('ga4_id') or '').strip()
+assert not GA4_ID or re.fullmatch(r'G-[A-Z0-9]{4,12}', GA4_ID), 'settings.json: analytics.ga4_id should look like G-XXXXXXX'
+GA4 = ('' if not GA4_ID else
+  f'\n<script async src="https://www.googletagmanager.com/gtag/js?id={GA4_ID}"></script>\n'
+  '<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date());'
+  f'gtag("config","{GA4_ID}");'
+  # Visits that matter for a shop: calls, directions, gift cards and donations.
+  'document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(!a)return;var h=a.href,n=null;'
+  'if(/^tel:/.test(h))n="call";else if(/google\\.[a-z.]+\\/maps|maps\\.app\\.goo|maps\\.apple/.test(h))n="get_directions";'
+  'else if(/squareup\\.com\\/gift/.test(h))n="gift_card_click";else if(/square\\.link/.test(h))n="donate_click";'
+  'if(n)gtag("event",n,{link_url:h});});</script>')
+
 # Clean URLs. The keys are the generator's internal page names.
 URLS = {
     'index.html': '/', 'visit.html': '/visit', 'ramsgate.html': '/visit/ramsgate', 'narellan.html': '/visit/narellan',

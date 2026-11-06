@@ -84,5 +84,13 @@
   "reviews": {
     "write_review_url": "",
     "curated": []
+  },
+  "analytics": {
+    "ga4_id": "",
+    "_help": "Google Analytics 4 Measurement ID, e.g. G-ABC123XYZ. Leave empty to switch Analytics off."
+  },
+  "events": {
+    "show": false,
+    "_help": "Show the Events page in the menu, footer and sitemap. Keep false while there are no events beyond Coffee with Christ."
   }
 }

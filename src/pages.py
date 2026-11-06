@@ -122,7 +122,7 @@ exec(open(os.path.join(B,'narellan.py')).read())
 
 # ================================================================ COFFEE WITH CHRIST
 CWC_SCHEMA = {"@context":"https://schema.org","@type":"Event","name":"Coffee with Christ: Thursday Bible study","description":"A relaxed weekly Bible study held in the cafe. No church background needed, no booking required.","eventSchedule":{"@type":"Schedule","byDay":"https://schema.org/"+CWC["day"],"startTime":CWC["start"],"endTime":CWC["end"],"repeatFrequency":"P1W","scheduleTimezone":"Australia/Sydney"},"eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode","isAccessibleForFree":True,"startDate":next_cwc()+"T"+CWC["start"],"endDate":next_cwc()+"T"+CWC["end"],"eventStatus":"https://schema.org/EventScheduled","location":{"@type":"Place","@id":"https://www.upperroombookshop.com/visit/ramsgate#location","name":"Upper Room Christian Bookshop Cafe, Ramsgate","address":{"@type":"PostalAddress","streetAddress":"219 Rocky Point Rd","addressLocality":"Ramsgate","addressRegion":"NSW","postalCode":"2217","addressCountry":"AU"}},"organizer":ORG}
-cwc = phero("coffee-with-christ-hand.jpg", [("index.html","Home"),("events.html","Events"),(None,"Coffee with Christ")], '%%CWC_EVERY%% · %%CWC_WHERE%%',
+cwc = phero("coffee-with-christ-hand.jpg", [("index.html","Home")] + ([("events.html","Events")] if SHOW_EVENTS else []) + [(None,"Coffee with Christ")], '%%CWC_EVERY%% · %%CWC_WHERE%%',
   'Coffee with <em>Christ</em>', 'A relaxed weekly Bible study, held around a table in the cafe. No church background needed, no booking required. Come as you are, and bring your questions.',
   f'<div style="display:flex;gap:24px;flex-wrap:wrap;align-items:center"><a class="btn" href="ramsgate.html">How to find us {ARR}</a><a class="tlink" href="narellan.html" style="color:#F4F2EE">Coming to Narellan too {ARR}</a></div>', pos='72% 70%')
 cwc += f'''
@@ -185,7 +185,7 @@ ev += f'''
     {fr('cafe-36.jpg','Clergy cutting the ribbon at the Upper Room grand opening','wide','0.06')}
   </div>
 </section>'''
-page('events.html','Events | Upper Room Christian Bookshop Cafe','A weekly Thursday Bible study and occasional gatherings at Upper Room Christian Bookshop Cafe. Everyone is welcome.', ev)
+page('events.html','Events | Upper Room Christian Bookshop Cafe','A weekly Thursday Bible study and occasional gatherings at Upper Room Christian Bookshop Cafe. Everyone is welcome.', ev, noindex=not SHOW_EVENTS)
 
 # ================================================================ LEARN MORE
 lm = '<div class="progress" aria-hidden="true"><i></i></div>' + phero(None, [('index.html','Home'),(None,'Explore the faith')], 'An introduction',

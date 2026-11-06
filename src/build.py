@@ -58,7 +58,10 @@ FONTS = ('<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n
 
 exec(open(os.path.join(B,'content.py')).read())
 
-NAV = [('index.html','Home'),('visit.html','Visit'),('books.html','Books & gifts'),('events.html','Events'),('learn-more.html','Explore the faith'),('contact.html','Contact')]
+SHOW_EVENTS = bool((S.get('events') or {}).get('show'))
+NAV = [('index.html','Home'),('visit.html','Visit'),('books.html','Books & gifts'),
+       ('events.html','Events') if SHOW_EVENTS else ('coffee-with-christ.html','Coffee with Christ'),
+       ('learn-more.html','Explore the faith'),('contact.html','Contact')]
 
 def header(cur):
     items = []
@@ -91,8 +94,7 @@ def header(cur):
     <li class="sub"><a href="ramsgate.html">Ramsgate</a></li>
     <li class="sub"><a href="narellan.html">Narellan</a></li>
     <li><a href="books.html">Books &amp; gifts</a></li>
-    <li><a href="events.html">Events</a></li>
-    <li class="sub"><a href="coffee-with-christ.html">Coffee with Christ</a></li>
+    {'<li><a href="events.html">Events</a></li><li class="sub">' if SHOW_EVENTS else '<li>'}<a href="coffee-with-christ.html">Coffee with Christ</a></li>
     <li><a href="learn-more.html">Explore the faith</a></li>
     <li><a href="gallery.html">Gallery</a></li>
     <li><a href="support.html">Support</a></li>
@@ -105,7 +107,7 @@ FOOTER = f'''<footer id="foot">
   <div class="wrap cols">
     <div style="display:grid;gap:20px;align-content:start"><img class="flogo" src="img/logo-white.png" alt="Upper Room Christian Bookshop Cafe"><p class="tag">A not-for-profit ministry of the Coptic Orthodox Church, open to everyone.</p></div>
     <div><h2 class="fh">Ramsgate</h2><p>219 Rocky Point Rd<br>Ramsgate NSW 2217</p><div class="hours" style="margin-top:12px">%%HOURS_GRID%%</div></div>
-    <div><h2 class="fh">Explore</h2><div class="sitemap"><a href="visit.html">Visit</a><a href="books.html">Books &amp; gifts</a><a href="coffee-with-christ.html">Coffee with Christ</a><a href="events.html">Events</a><a href="learn-more.html">Explore the faith</a><a href="gallery.html">Gallery</a><a href="support.html">Gift cards &amp; donations</a></div></div>
+    <div><h2 class="fh">Explore</h2><div class="sitemap"><a href="visit.html">Visit</a><a href="books.html">Books &amp; gifts</a><a href="coffee-with-christ.html">Coffee with Christ</a>{'<a href="events.html">Events</a>' if SHOW_EVENTS else ''}<a href="learn-more.html">Explore the faith</a><a href="gallery.html">Gallery</a><a href="support.html">Gift cards &amp; donations</a></div></div>
     <div><h2 class="fh">Contact</h2><p><a href="tel:%%PHONE_TEL%%">%%PHONE%%</a><br><a href="mailto:%%EMAIL%%">%%EMAIL%%</a><br><a href="{IG}">Instagram</a> · <a href="https://upperroommedia.org/">Upper Room Media</a></p><p style="margin-top:14px"><a href="narellan.html">Narellan: opening soon</a></p></div>
   </div>
   <div class="wrap base"><span>© Upper Room Christian Bookshop Cafe</span></div>
@@ -143,6 +145,7 @@ def page(fname, title, desc, body, schema=None, home=False, noindex=False):
             f'<meta property="og:title" content="{title}">\n<meta property="og:description" content="{desc}">\n'
             f'<meta property="og:url" content="{canon}">\n<meta property="og:image" content="{_og_image(body)}">\n<meta property="og:locale" content="en_AU">\n<meta name="twitter:card" content="summary_large_image">\n'
             + ('<meta name="robots" content="noindex">\n' if noindex else '') + FONTS)
+    head += GA4
     if schema:
         head += '\n<script type="application/ld+json">' + json.dumps(schema, ensure_ascii=False) + '</script>'
     inner = header(fname).replace('<header class="site" id="hdr">', '<header class="site" id="hdr">' + announcement(), 1) + f'\n<main id="top">\n{body}\n</main>\n{FOOTER}'

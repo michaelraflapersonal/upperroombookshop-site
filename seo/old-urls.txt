@@ -1,0 +1,16 @@
+# Addresses from the old Squarespace site (and common Squarespace defaults).
+# The agent checks each one on the live domain still lands on a working page.
+# Add any old URL Search Console reports as "Not found (404)".
+/
+/learn-more
+/contact
+/grand-opening
+/contact-us
+/visit-us
+/home
+/cart
+/donate
+/gift-cards
+/bible-study
+/ramsgate
+/narellan

@@ -73,7 +73,7 @@
 
   /* Forms: show the thank-you or error line in place */
   function done(f, ok){ var t=f.querySelector('.thanks'), e=f.querySelector('.formerr'), b=f.querySelector('[type=submit]');
-    if(ok){ if(t) t.hidden=false; if(e) e.hidden=true; b.disabled=true; $$('input,select,textarea',f).forEach(function(i){i.disabled=true}); }
+    if(ok){ if(window.gtag) gtag('event','generate_lead',{form:f.getAttribute('data-form')||'contact'}); if(t) t.hidden=false; if(e) e.hidden=true; b.disabled=true; $$('input,select,textarea',f).forEach(function(i){i.disabled=true}); }
     else { if(e) e.hidden=false; b.disabled=false; } }
   /* Contact form: posts to the Cloudflare function (/api/contact). Without JS it still posts normally. */
   $$('form[data-ajax]').forEach(function(f){ f.addEventListener('submit', function(e){

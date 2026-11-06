@@ -1,0 +1,54 @@
+{
+  "_help": "Settings for the SEO agent. Targets are the searches we track every run. Keep them local or niche, never generic head terms like 'Christian bookshop Sydney'.",
+  "search_console_property": "sc-domain:upperroombookshop.com",
+  "ga4_property_id": "",
+  "ga4_key_events": ["call", "get_directions", "gift_card_click", "donate_click", "generate_lead"],
+  "site": "https://www.upperroombookshop.com",
+  "inspect_urls": [
+    "https://www.upperroombookshop.com/",
+    "https://www.upperroombookshop.com/visit/ramsgate",
+    "https://www.upperroombookshop.com/coffee-with-christ",
+    "https://www.upperroombookshop.com/books",
+    "https://www.upperroombookshop.com/learn-more"
+  ],
+  "targets": {
+    "cafe_niche": [
+      "christian cafe sydney",
+      "christian cafe st george",
+      "bible study cafe sydney",
+      "christian bookshop cafe sydney",
+      "bookshop cafe sydney",
+      "cafe with bookshop ramsgate",
+      "quiet cafe ramsgate"
+    ],
+    "cafe_local": [
+      "cafe ramsgate",
+      "cafe sans souci",
+      "cafe sandringham",
+      "coffee ramsgate",
+      "breakfast ramsgate",
+      "cafe rocky point road"
+    ],
+    "bookshop": [
+      "christian bookshop ramsgate",
+      "christian bookshop st george",
+      "christian bookshop sutherland shire",
+      "orthodox books sydney",
+      "christian bookshop near me"
+    ],
+    "gifts": [
+      "christian gifts sydney",
+      "baptism gifts sydney",
+      "christian gift shop st george"
+    ],
+    "brand": [
+      "upper room bookshop",
+      "upper room ramsgate",
+      "coffee with christ"
+    ],
+    "narellan": [
+      "christian bookshop narellan",
+      "cafe narellan"
+    ]
+  }
+}
