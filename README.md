@@ -22,6 +22,7 @@ A small Python script (no extra packages) builds plain HTML pages into `dist/`. 
 
 All of these are in `content/settings.json`. Edit the file on GitHub (pencil icon), commit, and the site updates in about a minute.
 
+- **Ramsgate address:** `ramsgate.address`. This one entry updates every page. If the shop moves, also check the Google Place ID (`links.google_place_id` here and `GOOGLE_PLACE_ID` in `wrangler.jsonc`), and a few photo descriptions and the Ramsgate intro that mention Rocky Point Road.
 - **Opening hours:** `ramsgate.hours`. Times are 24-hour (`"16:00"`). Set `"closed": true` for a closed day. Also update `hours_summary` (the short line shown before the page knows the time, e.g. "Mon–Sat from 7am").
 - **Announcement banner:** set `announcement.show` to `true` and write the `text`. Optional `link_text` and `link_url`. Set `show` back to `false` to remove it.
 - **Coffee with Christ:** `day` (full day name) and `start` / `end` times. If the day changes, some sentences on the Coffee with Christ and Ramsgate pages also mention Thursday, so ask for those to be updated too.

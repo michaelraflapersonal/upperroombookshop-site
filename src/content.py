@@ -105,8 +105,13 @@ def announcement():
         link = f' <a href="{html.escape(a["link_url"])}">{html.escape(a["link_text"])} {ARR}</a>'
     return f'<div class="announce" role="status"><div class="wrap"><p>{html.escape(a["text"])}{link}</p></div></div>\n'
 
+_A = S['ramsgate']['address']
 TOKENS = {
     'PHONE': PHONE, 'PHONE_TEL': PHONE_TEL, 'EMAIL': EMAIL,
+    'ADDR_STREET': _A['street'], 'ADDR_SUBURB': _A['suburb'], 'ADDR_STATE': _A['state'], 'ADDR_POSTCODE': _A['postcode'],
+    'ADDR_LINE2': f"{_A['suburb']} {_A['state']} {_A['postcode']}",
+    'ADDR_SHORT': f"{_A['street']}, {_A['suburb']}",
+    'ADDR_FULL': f"{_A['street']}, {_A['suburb']} {_A['state']} {_A['postcode']}",
     'HOURS_DATA': HOURS_DATA, 'SPECIAL_DATA': SPECIAL_DATA, 'HOURS_SUMMARY': S['ramsgate']['hours_summary'], 'HOURS_GRID': HOURS_GRID,
     'HOURS_TABLE_ROWS': HOURS_TABLE_ROWS, 'HOURS_NOTE': S['ramsgate']['hours_note'],
     'CWC_WHEN': CWC_WHEN, 'CWC_EVERY': CWC_EVERY, 'CWC_WHERE': CWC['where'],

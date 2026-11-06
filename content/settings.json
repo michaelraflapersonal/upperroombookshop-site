@@ -11,6 +11,7 @@
     "instagram": "https://www.instagram.com/upperroombookshop"
   },
   "ramsgate": {
+    "address": { "street": "219 Rocky Point Rd", "suburb": "Ramsgate", "state": "NSW", "postcode": "2217" },
     "hours_summary": "Mon–Sat from 7am",
     "hours": [
       {

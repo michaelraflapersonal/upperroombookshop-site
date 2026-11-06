@@ -66,7 +66,7 @@ def header(cur):
         ac = ' aria-current="page"' if href == cur or (label=='Visit' and cur in ('visit.html','ramsgate.html','narellan.html')) or (label=='Events' and cur=='coffee-with-christ.html') else ''
         if label == 'Visit':
             items.append(f'<li><a class="dd" href="visit.html"{ac}>Visit</a><ul class="ddm">'
-                         f'<li><a href="ramsgate.html">Ramsgate<small>219 Rocky Point Rd</small></a></li>'
+                         f'<li><a href="ramsgate.html">Ramsgate<small>%%ADDR_STREET%%</small></a></li>'
                          f'<li><a href="narellan.html">Narellan<small>%%NAR_STATUS%%</small></a></li>'
                          f'<li><a href="visit.html">All locations<small>Hours side by side</small></a></li></ul></li>')
         elif label == 'Events':
@@ -98,13 +98,13 @@ def header(cur):
     <li><a href="support.html">Support</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
-  <p class="foot">219 Rocky Point Rd, Ramsgate · %%PHONE%%</p>
+  <p class="foot">%%ADDR_SHORT%% · %%PHONE%%</p>
 </div>'''
 
 FOOTER = f'''<footer id="foot">
   <div class="wrap cols">
     <div style="display:grid;gap:20px;align-content:start"><img class="flogo" src="img/logo-white.png" alt="Upper Room Christian Bookshop Cafe"><p class="tag">A not-for-profit ministry of the Coptic Orthodox Church, open to everyone.</p></div>
-    <div><h2 class="fh">Ramsgate</h2><p>219 Rocky Point Rd<br>Ramsgate NSW 2217</p><div class="hours" style="margin-top:12px">%%HOURS_GRID%%</div></div>
+    <div><h2 class="fh">Ramsgate</h2><p>%%ADDR_STREET%%<br>%%ADDR_LINE2%%</p><div class="hours" style="margin-top:12px">%%HOURS_GRID%%</div></div>
     <div><h2 class="fh">Explore</h2><div class="sitemap"><a href="visit.html">Visit</a><a href="books.html">Books &amp; gifts</a><a href="coffee-with-christ.html">Coffee with Christ</a><a href="events.html">Events</a><a href="learn-more.html">Explore the faith</a><a href="gallery.html">Gallery</a><a href="support.html">Gift cards &amp; donations</a></div></div>
     <div><h2 class="fh">Contact</h2><p><a href="tel:%%PHONE_TEL%%">%%PHONE%%</a><br><a href="mailto:%%EMAIL%%">%%EMAIL%%</a><br><a href="{IG}">Instagram</a> · <a href="https://upperroommedia.org/">Upper Room Media</a></p><p style="margin-top:14px"><a href="narellan.html">Narellan: opening soon</a></p></div>
   </div>
@@ -159,7 +159,7 @@ def fr(img, alt, cls='', speed='0.06', style=''):
 ORG = {"@id":"https://www.upperroombookshop.com/#org"}
 RAMS_SCHEMA = {"@context":"https://schema.org","@type":["BookStore","CafeOrCoffeeShop"],"@id":"https://www.upperroombookshop.com/visit/ramsgate#location",
   "name":"Upper Room Christian Bookshop Cafe, Ramsgate","url":"https://www.upperroombookshop.com/visit/ramsgate","telephone":PHONE_INTL,"email":EMAIL,
-  "address":{"@type":"PostalAddress","streetAddress":"219 Rocky Point Rd","addressLocality":"Ramsgate","addressRegion":"NSW","postalCode":"2217","addressCountry":"AU"},
+  "address":{"@type":"PostalAddress","streetAddress":"%%ADDR_STREET%%","addressLocality":"%%ADDR_SUBURB%%","addressRegion":"%%ADDR_STATE%%","postalCode":"%%ADDR_POSTCODE%%","addressCountry":"AU"},
   "openingHoursSpecification":OPENING_SPEC,
   "image":SITE+"/img/URM_Bookshop-99.jpg","priceRange":"$","parentOrganization":ORG,"sameAs":[IG]}
 

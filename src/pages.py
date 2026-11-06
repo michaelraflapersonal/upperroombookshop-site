@@ -9,7 +9,7 @@ MAP_SRC = f"https://www.google.com/maps?cid={PLACE_CID}&hl=en&z=16&output=embed"
 def mapcard(label, href):
     return (f'<figure class="mapembed rv"><div class="mapframe"><iframe src="{MAP_SRC}" title="Map showing {label}" loading="lazy" '
             f'referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div>'
-            f'<figcaption><span>219 Rocky Point Rd, Ramsgate</span><a class="tlink" href="{href}" target="_blank" rel="noopener">Open in Google Maps {ARR}</a>'
+            f'<figcaption><span>%%ADDR_SHORT%%</span><a class="tlink" href="{href}" target="_blank" rel="noopener">Open in Google Maps {ARR}</a>'
             f'</figcaption></figure>')
 
 # ================================================================ VISIT HUB
@@ -26,7 +26,7 @@ visit += f'''
         <div class="body">
           <span class="status" data-hours="%%HOURS_DATA%%" data-special="%%SPECIAL_DATA%%"><i aria-hidden="true"></i><span>%%HOURS_SUMMARY%%</span></span>
           <h3 class="serif">Ramsgate</h3>
-          <p class="addr">219 Rocky Point Rd, Ramsgate NSW 2217</p>
+          <p class="addr">%%ADDR_FULL%%</p>
           <div class="hours" style="font-size:15px;color:var(--muted)">%%HOURS_GRID%%</div>
           <div class="links"><a class="tlink" href="ramsgate.html">Plan your visit to Ramsgate {ARR}</a><a class="tlink" href="{DIRS}">Directions</a></div>
         </div>
@@ -67,7 +67,7 @@ rams += f'''
 <section style="background:var(--bg)">
   <div class="wrap today">
     <div><span class="k">Right now</span><span class="v status" data-hours="%%HOURS_DATA%%" data-special="%%SPECIAL_DATA%%"><i aria-hidden="true"></i><span>%%HOURS_SUMMARY%%</span></span></div>
-    <div><span class="k">Address</span><span class="v">219 Rocky Point Rd, Ramsgate NSW 2217</span><button class="copy-btn" type="button" data-copy="219 Rocky Point Rd, Ramsgate NSW 2217">Copy</button></div>
+    <div><span class="k">Address</span><span class="v">%%ADDR_FULL%%</span><button class="copy-btn" type="button" data-copy="%%ADDR_FULL%%">Copy</button></div>
     <div><span class="k">Phone</span><span class="v"><a href="tel:%%PHONE_TEL%%">%%PHONE%%</a></span></div>
     <div><a class="btn" href="{DIRS}">Get directions {ARR}</a></div>
   </div>
@@ -116,12 +116,12 @@ rams += f'''
   <div class="wrap"><a class="nextcard rv" href="narellan.html"><div><span class="eyebrow">In Sydney's South West?</span><h3 class="serif" style="margin-top:12px">Upper Room Narellan is opening soon</h3></div><span class="arr" aria-hidden="true">→</span></a></div>
 </section>'''
 RAMS_SCHEMA['hasMap'] = MAPS
-page('ramsgate.html','Christian Bookshop &amp; Cafe in Ramsgate | Upper Room','Books, gifts and coffee at 219 Rocky Point Rd, Ramsgate. Open Monday to Saturday from 7am, with Bible study on Thursday nights. Near Sans Souci and Sylvania.', rams, RAMS_SCHEMA)
+page('ramsgate.html','Christian Bookshop &amp; Cafe in Ramsgate | Upper Room','Books, gifts and coffee at %%ADDR_SHORT%%. Open Monday to Saturday from 7am, with Bible study on Thursday nights. Near Sans Souci and Sylvania.', rams, RAMS_SCHEMA)
 
 exec(open(os.path.join(B,'narellan.py')).read())
 
 # ================================================================ COFFEE WITH CHRIST
-CWC_SCHEMA = {"@context":"https://schema.org","@type":"Event","name":"Coffee with Christ: Thursday Bible study","description":"A relaxed weekly Bible study held in the cafe. No church background needed, no booking required.","eventSchedule":{"@type":"Schedule","byDay":"https://schema.org/"+CWC["day"],"startTime":CWC["start"],"endTime":CWC["end"],"repeatFrequency":"P1W","scheduleTimezone":"Australia/Sydney"},"eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode","isAccessibleForFree":True,"startDate":next_cwc()+"T"+CWC["start"],"endDate":next_cwc()+"T"+CWC["end"],"eventStatus":"https://schema.org/EventScheduled","location":{"@type":"Place","@id":"https://www.upperroombookshop.com/visit/ramsgate#location","name":"Upper Room Christian Bookshop Cafe, Ramsgate","address":{"@type":"PostalAddress","streetAddress":"219 Rocky Point Rd","addressLocality":"Ramsgate","addressRegion":"NSW","postalCode":"2217","addressCountry":"AU"}},"organizer":ORG}
+CWC_SCHEMA = {"@context":"https://schema.org","@type":"Event","name":"Coffee with Christ: Thursday Bible study","description":"A relaxed weekly Bible study held in the cafe. No church background needed, no booking required.","eventSchedule":{"@type":"Schedule","byDay":"https://schema.org/"+CWC["day"],"startTime":CWC["start"],"endTime":CWC["end"],"repeatFrequency":"P1W","scheduleTimezone":"Australia/Sydney"},"eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode","isAccessibleForFree":True,"startDate":next_cwc()+"T"+CWC["start"],"endDate":next_cwc()+"T"+CWC["end"],"eventStatus":"https://schema.org/EventScheduled","location":{"@type":"Place","@id":"https://www.upperroombookshop.com/visit/ramsgate#location","name":"Upper Room Christian Bookshop Cafe, Ramsgate","address":{"@type":"PostalAddress","streetAddress":"%%ADDR_STREET%%","addressLocality":"%%ADDR_SUBURB%%","addressRegion":"%%ADDR_STATE%%","postalCode":"%%ADDR_POSTCODE%%","addressCountry":"AU"}},"organizer":ORG}
 cwc = phero("coffee-with-christ-hand.jpg", [("index.html","Home"),("events.html","Events"),(None,"Coffee with Christ")], '%%CWC_EVERY%% · %%CWC_WHERE%%',
   'Coffee with <em>Christ</em>', 'A relaxed weekly Bible study, held around a table in the cafe. No church background needed, no booking required. Come as you are, and bring your questions.',
   f'<div style="display:flex;gap:24px;flex-wrap:wrap;align-items:center"><a class="btn" href="ramsgate.html">How to find us {ARR}</a><a class="tlink" href="narellan.html" style="color:#F4F2EE">Coming to Narellan too {ARR}</a></div>', pos='72% 70%')
@@ -342,7 +342,7 @@ con += f'''
       <div class="info">
         <div><h3 class="serif">Phone</h3><p><a href="tel:%%PHONE_TEL%%">%%PHONE%%</a></p></div>
         <div><h3 class="serif">Email</h3><p>%%EMAIL%% <button class="copy-btn" type="button" data-copy="%%EMAIL%%" aria-label="Copy email address">Copy</button></p></div>
-        <div><h3 class="serif">Ramsgate</h3><p>219 Rocky Point Rd, Ramsgate NSW 2217<br><a class="tlink" href="ramsgate.html" style="margin-top:8px">Hours and directions {ARR}</a></p></div>
+        <div><h3 class="serif">Ramsgate</h3><p>%%ADDR_FULL%%<br><a class="tlink" href="ramsgate.html" style="margin-top:8px">Hours and directions {ARR}</a></p></div>
         <div><h3 class="serif">Narellan</h3><p>Kasland House 6, opposite Narellan Town Centre. %%NAR_STATUS%%. <a href="narellan.html">Find out more</a></p></div>
         <div><h3 class="serif">Instagram</h3><p><a href="{IG}">@upperroombookshop</a></p></div>
       </div>
