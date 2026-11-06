@@ -60,7 +60,7 @@ The home and Ramsgate pages have a "What people say about us" strip with a link 
 1. Google Cloud console → create a project → enable **Places API (New)**.
 2. Credentials → Create API key → restrict it to *Places API (New)*.
 3. Find the shop's Place ID with Google's "Place ID Finder" (search "Upper Room Christian Bookshop Cafe Ramsgate"). It starts with `ChIJ`.
-4. In the Worker → Settings → Variables and Secrets add `GOOGLE_PLACES_API_KEY` as a Secret, then redeploy. `GOOGLE_PLACE_ID` is set in `wrangler.jsonc` under `vars` (a dashboard-only Text variable would be removed on deploy).
+4. In the Worker → Settings → Variables and Secrets add `GOOGLE_PLACES_API_KEY` as a Secret, then redeploy. `GOOGLE_PLACE_ID` is set in `wrangler.jsonc` under `vars` (the same ID is `links.google_place_id` in `content/settings.json`, which drives the map, directions and review links; keep the two in step) (a dashboard-only Text variable would be removed on deploy).
 Google returns the rating, review count and up to five recent reviews. The site shows the 4 and 5 star ones.
 
 **B. Hand-picked (free, no keys).** In `content/settings.json` under `reviews.curated`, add real reviews you have permission to show: `{"author": "Name", "rating": 5, "text": "…", "when": "October 2026"}`. Optionally set `reviews.write_review_url` to the shop's "Write a review" link.

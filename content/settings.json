@@ -75,14 +75,13 @@
   "links": {
     "gift_cards": "https://app.squareup.com/gift/MLDP1QRKYSY9Q/order",
     "donate": "https://square.link/u/PcCqXFPE",
-    "google_maps": "https://maps.app.goo.gl/jn9cAj37cLX8t3pe7"
+    "google_place_id": "ChIJJSBaAni5EmsRCzlsPK468Jk"
   },
   "instagram_feed": {
     "behold_feed_id": "ru6aWMsPXRDjrwZurQ3M",
     "count": 6
   },
   "reviews": {
-    "place_id": "",
     "write_review_url": "",
     "curated": []
   }

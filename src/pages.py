@@ -5,7 +5,7 @@ HRS_TABLE = '''<table class="hrs"><caption class="eyebrow" style="text-align:lef
 <p class="muted" style="font-size:15px;margin-top:14px">%%HOURS_NOTE%%</p>
 <p class="muted hrs-special" data-special-note hidden></p>'''
 
-MAP_SRC = "https://www.google.com/maps?q=219+Rocky+Point+Rd,+Ramsgate+NSW+2217&hl=en&z=16&output=embed"
+MAP_SRC = f"https://www.google.com/maps?cid={PLACE_CID}&hl=en&z=16&output=embed"
 def mapcard(label, href):
     return (f'<figure class="mapembed rv"><div class="mapframe"><iframe src="{MAP_SRC}" title="Map showing {label}" loading="lazy" '
             f'referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div>'
@@ -75,7 +75,7 @@ rams += f'''
 <section class="band">
   <div class="wrap split top">
     <div class="rv">{HRS_TABLE}</div>
-    <div>{mapcard('Upper Room, Ramsgate', DIRS)}</div>
+    <div>{mapcard('Upper Room, Ramsgate', MAPS)}</div>
   </div>
 </section>
 <section class="band alt">
@@ -115,7 +115,7 @@ rams += f'''
 <section class="band" style="padding-block:clamp(56px,7vw,96px)">
   <div class="wrap"><a class="nextcard rv" href="narellan.html"><div><span class="eyebrow">In Sydney's South West?</span><h3 class="serif" style="margin-top:12px">Upper Room Narellan is opening soon</h3></div><span class="arr" aria-hidden="true">→</span></a></div>
 </section>'''
-RAMS_SCHEMA['hasMap'] = DIRS
+RAMS_SCHEMA['hasMap'] = MAPS
 page('ramsgate.html','Christian Bookshop &amp; Cafe in Ramsgate | Upper Room','Books, gifts and coffee at 219 Rocky Point Rd, Ramsgate. Open Monday to Saturday from 7am, with Bible study on Thursday nights. Near Sans Souci and Sylvania.', rams, RAMS_SCHEMA)
 
 exec(open(os.path.join(B,'narellan.py')).read())

@@ -1,6 +1,6 @@
 """Builds the Upper Room site into dist/. Run: python3 src/build.py
 Content staff edit lives in content/settings.json; everything else is in src/."""
-import os, re, json, shutil, html, datetime
+import os, re, json, shutil, html, datetime, base64
 B = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(B)
 OUT = os.path.join(ROOT, 'dist')
@@ -12,7 +12,13 @@ shutil.copytree(os.path.join(ROOT, 'static'), OUT)
 
 GIFT = S['links']['gift_cards']
 DONATE = S['links']['donate']
-DIRS = S['links']['google_maps']
+PLACE_ID = S['links']['google_place_id']
+_PLACE_NAME = 'Upper+Room+Christian+Bookshop+Cafe'
+MAPS = f'https://www.google.com/maps/search/?api=1&query={_PLACE_NAME}&query_place_id={PLACE_ID}'
+DIRS = f'https://www.google.com/maps/dir/?api=1&destination={_PLACE_NAME}&destination_place_id={PLACE_ID}'
+WRITE_REVIEW = f'https://search.google.com/local/writereview?placeid={PLACE_ID}'
+# Google's keyless map embed ignores Place IDs (it shows a world map), but accepts the listing's CID, which is encoded in the Place ID.
+PLACE_CID = int.from_bytes(base64.urlsafe_b64decode(PLACE_ID + '=' * (-len(PLACE_ID) % 4))[12:20], 'little')
 IG = S['contact']['instagram']
 ARR = '<span class="arr" aria-hidden="true">→</span>'
 
@@ -26,8 +32,8 @@ RV = S.get('reviews', {})
 STAR = '<svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M10 1.6l2.5 5.3 5.8.7-4.3 4 1.1 5.7L10 14.4l-5.1 2.9L6 11.6 1.7 7.6l5.8-.7z"/></svg>'
 def stars(n): return '<span class="stars" role="img" aria-label="%d out of 5 stars">%s</span>' % (n, STAR * int(n))
 def reviews_section(heading='What people say about us'):
-    maps = S['links']['google_maps']
-    write = RV.get('write_review_url') or maps
+    maps = MAPS
+    write = RV.get('write_review_url') or WRITE_REVIEW
     cards = ''.join(f'<li class="rvc">{stars(r.get("rating", 5))}<blockquote>{html.escape(r["text"])}</blockquote>'
                     f'<p class="who">{html.escape(r["author"])}{(" · " + html.escape(r["when"])) if r.get("when") else ""}</p></li>' for r in RV.get('curated', []))
     return (f'<section class="band reviews" aria-labelledby="rv-h" data-reviews="/api/reviews">'
