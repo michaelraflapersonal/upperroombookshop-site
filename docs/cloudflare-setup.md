@@ -56,7 +56,7 @@ If Behold is ever down, or the ID is empty, the strip quietly keeps the placehol
 
 The home and Ramsgate pages have a "What people say about us" strip with a link to read and leave reviews on Google. Two ways to fill it with reviews:
 
-**A. Live from Google (automatic).** Needs a Google Cloud project with billing switched on (Google asks for a card even though the usage here is tiny: the site asks Google at most about once a day and caches the answer).
+**A. Live from Google (automatic).** Needs a Google Cloud project with billing switched on (Google asks for a card even though the usage here is tiny: the site asks Google about once a month and caches the answer).
 1. Google Cloud console → create a project → enable **Places API (New)**.
 2. Credentials → Create API key → restrict it to *Places API (New)*.
 3. Find the shop's Place ID with Google's "Place ID Finder" (search "Upper Room Christian Bookshop Cafe Ramsgate"). It starts with `ChIJ`.
