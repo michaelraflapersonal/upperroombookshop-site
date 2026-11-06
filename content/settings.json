@@ -85,5 +85,54 @@
   "reviews": {
     "write_review_url": "",
     "curated": []
+  },
+  "featured": {
+    "hero": {
+      "seconds": 8,
+      "slides": [
+        { "photo": "URM_Bookshop-4.jpg", "mobile": "URM_Bookshop-5.jpg", "alt": "Inside Upper Room in Ramsgate: timber shelves of Christian books around the illuminated Upper Room logo" },
+        { "photo": "URM_Bookshop-26.jpg", "pos": "center 45%", "shade": "strong" },
+        { "photo": "cafe-14.jpg", "mobile": "cafe-14-m.jpg" },
+        { "photo": "URM_Bookshop-86.jpg", "pos": "center 55%" },
+        { "photo": "URM_Bookshop-5.jpg", "mobile": "URM_Bookshop-72.jpg", "pos": "center 58%" }
+      ]
+    },
+    "slots": {
+      "home-coffee": { "photos": [
+        { "photo": "URM_Bookshop-21.jpg", "alt": "A latte and almond croissant at the Upper Room cafe" },
+        { "photo": "URM_Bookshop-84.jpg", "alt": "A barista steaming milk at the Upper Room cafe counter" },
+        { "photo": "URM_Bookshop-1-2.jpg", "alt": "Espresso pouring into a white cup at the Upper Room cafe" }
+      ] },
+      "home-people": { "photos": [
+        { "photo": "URM_Bookshop-68.jpg", "alt": "Two friends choosing books together at Upper Room" }
+      ] },
+      "home-icon": { "photos": [
+        { "photo": "URM_Bookshop-83.jpg", "alt": "An icon of St George on the shelves beside a row of commentaries" },
+        { "photo": "URM_Bookshop-48.jpg", "alt": "An icon of Christ on a timber shelf at Upper Room" },
+        { "photo": "URM_Bookshop-53.jpg", "alt": "An icon of the Archangel Michael on a timber shelf" },
+        { "photo": "URM_Bookshop-3-2.jpg", "alt": "An icon of Mary and the Christ child in the Family and Parenting section" }
+      ] },
+      "home-browsing": { "photos": [
+        { "photo": "URM_Bookshop-7.jpg", "alt": "The display table of books, gifts and bracelets at Upper Room" }
+      ] },
+      "inside-welcome": { "photos": [
+        { "photo": "URM_Bookshop-3.jpg", "alt": "A warm welcome from a smiling staff member at the counter" }
+      ] },
+      "inside-room": { "photos": [
+        { "photo": "URM_Bookshop-6.jpg", "alt": "The gift table and timber shelves under the paper lanterns" },
+        { "photo": "URM_Bookshop-74.jpg", "alt": "Crosses and icons on the gift table in front of a full wall of books" },
+        { "photo": "URM_Bookshop-72.jpg", "alt": "Timber shelves around the Upper Room logo, with an icon of Christ" }
+      ] },
+      "inside-guests": { "photos": [
+        { "photo": "URM_Bookshop-25.jpg", "alt": "A guest reading at a table with her coffee" }
+      ] },
+      "gifts": { "photos": [
+        { "photo": "URM_Bookshop-14.jpg", "alt": "A wall of icons, prayer ropes and Upper Room tote bags" },
+        { "photo": "cafe-19.jpg", "alt": "A wall of icons and prayer ropes at Upper Room" },
+        { "photo": "URM_Bookshop-11.jpg", "alt": "Bracelets on the gift table at Upper Room" },
+        { "photo": "URM_Bookshop-87.jpg", "alt": "A gift hamper of books and chocolates", "months": [3, 4, 5] },
+        { "photo": "URM_Bookshop-91.jpg", "alt": "A gift hamper on a table by the window", "months": [3, 4, 5] }
+      ] }
+    }
   }
 }

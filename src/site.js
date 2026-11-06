@@ -2,6 +2,20 @@
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var $ = function(s,r){return (r||document).querySelector(s)}, $$ = function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
 
+  /* Monthly photos: each slot listed under "featured" in content/settings.json takes its turn, month by month (Sydney time) */
+  (function(){
+    var d=new Date(), y=d.getFullYear(), m=d.getMonth()+1;
+    try{ new Intl.DateTimeFormat('en-AU',{timeZone:'Australia/Sydney',year:'numeric',month:'numeric'}).formatToParts(d).forEach(function(p){ if(p.type==='year') y=+p.value; if(p.type==='month') m=+p.value; }); }catch(e){}
+    $$('img[data-photos]').forEach(function(img){ var list;
+      try{ list=JSON.parse(img.getAttribute('data-photos')); }catch(e){ return; }
+      list=list.filter(function(p){ return !p.months||p.months.indexOf(m)>-1; });
+      if(!list.length) return;
+      var pick=list[(y*12+m)%list.length];
+      if(pick.f===img.getAttribute('src')) return;
+      img.removeAttribute('width'); img.removeAttribute('height');
+      img.srcset=pick.s; img.src=pick.f; img.alt=pick.a||''; });
+  })();
+
   /* Header: transparent over the opening photograph, solid after it */
   var hdr = $('#hdr'), first = $('main > section');
   function onHdr(){ var t = first ? first.offsetHeight - 90 : 200; hdr.classList.toggle('solid', window.scrollY > t); }
@@ -196,5 +210,42 @@
       y=Math.max(-room,Math.min(room,y)); img.style.transform='translate3d(0,'+y.toFixed(1)+'px,0)'; }); }
   window.addEventListener('scroll',function(){ if(!ticking){ ticking=true; requestAnimationFrame(px);} },{passive:true});
   window.addEventListener('resize',px); px();
+
+  /* Homepage hero: a slow crossfade between the photos under "featured" in content/settings.json.
+     Only the first photo loads with the page. With reduced motion or data saver on, it stays still. */
+  (function(){
+    var frame=$('[data-hero]'); if(!frame) return;
+    var extra; try{ extra=JSON.parse(frame.getAttribute('data-slides')||'[]'); }catch(e){ return; }
+    var conn=navigator.connection;
+    if(reduce||!extra.length||(conn&&conn.saveData)) return;
+    var hero=frame.closest('.hero'), first=$('.hs',frame);
+    var slides=[{el:first,strong:first.classList.contains('strong')}].concat(extra);
+    var i=0, timer=null, busy=false, wait=(parseInt(frame.getAttribute('data-seconds'),10)||8)*1000;
+    function build(s){
+      if(s.el) return s.el;
+      var p=document.createElement('picture'); p.className='hs'; if(s.pos) p.setAttribute('style',s.pos);
+      if(s.m){ var so=document.createElement('source'); so.media='(max-width:700px)'; so.srcset=s.m.s; so.sizes='100vw'; p.appendChild(so); }
+      var im=document.createElement('img'); im.alt=''; im.sizes='100vw'; im.srcset=s.d.s; im.src=s.d.f; im.setAttribute('data-speed','0.28');
+      p.appendChild(im); frame.appendChild(p); imgs.push(im); s.el=p; return p;
+    }
+    function next(){
+      if(busy||document.hidden) return; busy=true;
+      var n=(i+1)%slides.length, to=build(slides[n]), from=slides[i].el, im=$('img',to);
+      function go(){
+        if(document.hidden){ busy=false; return; }
+        px(); to.classList.add('in','on'); hero.classList.toggle('strong',!!slides[n].strong);
+        setTimeout(function(){ from.classList.remove('on'); to.classList.remove('in'); i=n; busy=false; },1700);
+      }
+      var loaded=im.decode?im.decode():new Promise(function(ok,no){ im.onload=ok; im.onerror=no; });
+      loaded.then(go,function(){ busy=false; });
+    }
+    var btn=document.createElement('button'); btn.type='button'; btn.className='herop';
+    function play(){ timer=setInterval(next,wait); btn.setAttribute('aria-label','Pause the background photos'); btn.classList.remove('paused'); }
+    function stop(){ clearInterval(timer); timer=null; btn.setAttribute('aria-label','Play the background photos'); btn.classList.add('paused'); }
+    btn.innerHTML='<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path class="pa" d="M4 2h3v12H4zM9 2h3v12H9z" fill="currentColor"/><path class="pl" d="M4 2l10 6-10 6z" fill="currentColor"/></svg>';
+    btn.addEventListener('click',function(){ if(timer) stop(); else play(); });
+    hero.appendChild(btn);
+    if(document.readyState==='complete') play(); else window.addEventListener('load',play);
+  })();
 
 })();

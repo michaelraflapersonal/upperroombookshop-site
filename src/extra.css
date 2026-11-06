@@ -295,3 +295,18 @@ footer a{display:inline-block}
 .rvc .who a{color:inherit}
 @media (max-width:900px){.rvgrid{grid-template-columns:1fr 1fr}}
 @media (max-width:600px){.rvgrid{grid-template-columns:1fr}.rvcta .btn{width:100%;text-align:center}}
+
+/* Homepage hero: slow crossfade between photos, listed under "featured" in content/settings.json */
+.hero .frame{z-index:0}
+.hero .frame .hs{opacity:0;z-index:0;transition:opacity 1.6s ease}
+.hero .frame .hs.on{opacity:1;z-index:1}
+.hero .frame .hs.in{z-index:2}
+.hero .frame .hs img{object-position:var(--pd,center)}
+.hero .shade-x{background:linear-gradient(90deg,rgba(59,58,54,.5) 0%,rgba(59,58,54,.34) 45%,rgba(59,58,54,0) 72%);opacity:0;transition:opacity 1.6s ease}
+.hero.strong .shade-x{opacity:1}
+.herop{position:absolute;z-index:2;right:max(20px,env(safe-area-inset-right,0px));bottom:18px;width:44px;height:44px;display:grid;place-items:center;padding:0;border:1px solid rgba(244,242,238,.45);border-radius:50%;background:rgba(59,58,54,.5);color:#F4F2EE;cursor:pointer;transition:background .2s}
+.herop:hover{background:rgba(59,58,54,.8)}
+.herop:focus-visible{outline:2px solid #D4B26A;outline-offset:2px}
+.herop .pl{display:none}.herop.paused .pl{display:inline}.herop.paused .pa{display:none}
+@media (max-width:700px){.hero .frame .hs img{object-position:var(--pm,center)}.hero .shade-x{background:linear-gradient(0deg,rgba(59,58,54,.35) 0%,rgba(59,58,54,.35) 55%,rgba(59,58,54,0) 80%)}}
+@media (prefers-reduced-motion:reduce){.hero .frame .hs,.hero .shade-x{transition:none}}

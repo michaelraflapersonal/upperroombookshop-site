@@ -24,7 +24,7 @@ ARR = '<span class="arr" aria-hidden="true">→</span>'
 
 IGF = S.get('instagram_feed', {})
 IG_FALLBACK = [('URM_Bookshop-86.jpg','A barista pouring latte art at the counter'),('URM_Bookshop-68.jpg','Two friends choosing books together'),
-               ('URM_Bookshop-83.jpg','An icon on the shelves beside a row of commentaries'),('URM_Bookshop-40.jpg','Browsing the gift table'),
+               ('URM_Bookshop-83.jpg','An icon on the shelves beside a row of commentaries'),('URM_Bookshop-7.jpg','The gift table'),
                ('URM_Bookshop-20.jpg','Two coffees and a prayer rope'),('URM_Bookshop-76.jpg','Conversation over coffee in the cafe')]
 IG_ICON = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r=".9" fill="currentColor" stroke="none"/></svg>'
 
@@ -57,6 +57,7 @@ FONTS = ('<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n
          '<meta name="color-scheme" content="light dark">\n<link rel="stylesheet" href="/site.css">\n<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">\n<link rel="icon" type="image/png" sizes="192x192" href="/img/favicon.png">\n<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">')
 
 exec(open(os.path.join(B,'content.py')).read())
+exec(open(os.path.join(B,'featured.py')).read())
 
 NAV = [('index.html','Home'),('visit.html','Visit'),('books.html','Books & gifts'),('events.html','Events'),('learn-more.html','Explore the faith'),('contact.html','Contact')]
 
@@ -195,6 +196,7 @@ rep = [
 ]
 for a,b in rep:
     assert a in main, a; main = main.replace(a,b)
+main = apply_featured(main)
 HOME_SCHEMA = {"@context":"https://schema.org","@type":"Organization","@id":"https://www.upperroombookshop.com/#org","name":"Upper Room Christian Bookshop Cafe","url":"https://www.upperroombookshop.com/","logo":SITE+"/img/logo-olive.png","email":EMAIL,"sameAs":[IG],"department":[{"@id":"https://www.upperroombookshop.com/visit/ramsgate#location"},{"@id":"https://www.upperroombookshop.com/visit/narellan#location"}]}
 page('index.html','Upper Room | Christian Bookshop &amp; Cafe, Ramsgate Sydney','A welcoming Christian bookshop and cafe in Ramsgate, Sydney, with a weekly Bible study. A not-for-profit ministry of the Coptic Orthodox Church, open to all.', main, HOME_SCHEMA)
 

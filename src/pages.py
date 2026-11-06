@@ -266,7 +266,6 @@ G = [
  ('URM_Bookshop-95.jpg','Children\'s Bibles','books'),
  ('URM_Bookshop-14.jpg','Icons, prayer beads and tote bags','gifts'),
  ('URM_Bookshop-2-2.jpg','The illuminated Upper Room logo','books'),
- ('URM_Bookshop-27.jpg','Friends talking by the window','cafe people'),
  ('URM_Bookshop-20.jpg','Two coffees and a prayer rope','cafe'),
  ('URM_Bookshop-68.jpg','Finding the right book','books people'),
  ('URM_Bookshop-83.jpg','St George on the Commentaries shelf','books'),

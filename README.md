@@ -27,6 +27,7 @@ All of these are in `content/settings.json`. Edit the file on GitHub (pencil ico
 - **Announcement banner:** set `announcement.show` to `true` and write the `text`. Optional `link_text` and `link_url`. Set `show` back to `false` to remove it.
 - **Coffee with Christ:** `day` (full day name) and `start` / `end` times. If the day changes, some sentences on the Coffee with Christ and Ramsgate pages also mention Thursday, so ask for those to be updated too.
 - **Holiday hours:** add entries to `ramsgate.special_hours` (see `docs/cloudflare-setup.md`, section 7).
+- **Homepage and featured photos:** `featured.hero.slides` is the rotating homepage background, and `seconds` is how long each photo holds. `featured.slots` lists the photos each homepage tile takes turns through, one a month. Add `"months": [3, 4, 5]` to show a photo only in those months. The first photo in a slot must be an all-year one. To use a new photo, run `python3 tools/add_photo.py "path/to/original.jpg"` (add `--width 1600` for the hero) and then `python3 tools/optimise.py`. Please check people in a photo have agreed to appear, especially children.
 - **Google reviews:** `reviews.curated` or the live feed (section 6).
 - **Instagram feed:** `instagram_feed.behold_feed_id` (see `docs/cloudflare-setup.md`, section 5).
 - **Books & gifts:** add or change books in Square; the site picks them up within 10 minutes. Section blurbs and notes are in `content/catalogue.json` (section 9).
