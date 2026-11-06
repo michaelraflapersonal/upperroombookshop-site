@@ -104,7 +104,8 @@
         { "photo": "URM_Bookshop-1-2.jpg", "alt": "Espresso pouring into a white cup at the Upper Room cafe" }
       ] },
       "home-people": { "photos": [
-        { "photo": "URM_Bookshop-68.jpg", "alt": "Two friends choosing books together at Upper Room" }
+        { "photo": "URM_Bookshop-68.jpg", "alt": "Two friends choosing books together at Upper Room" },
+        { "photo": "URM_Bookshop-67.jpg", "alt": "Two friends choosing books together at Upper Room" }
       ] },
       "home-icon": { "photos": [
         { "photo": "URM_Bookshop-83.jpg", "alt": "An icon of St George on the shelves beside a row of commentaries" },
@@ -113,10 +114,12 @@
         { "photo": "URM_Bookshop-3-2.jpg", "alt": "An icon of Mary and the Christ child in the Family and Parenting section" }
       ] },
       "home-browsing": { "photos": [
-        { "photo": "URM_Bookshop-7.jpg", "alt": "The display table of books, gifts and bracelets at Upper Room" }
+        { "photo": "URM_Bookshop-7.jpg", "alt": "The display table of books, gifts and bracelets at Upper Room" },
+        { "photo": "URM_Bookshop-38.jpg", "alt": "A staff member helping a customer at the gift table beneath the Upper Room logo" }
       ] },
       "inside-welcome": { "photos": [
-        { "photo": "URM_Bookshop-3.jpg", "alt": "A warm welcome from a smiling staff member at the counter" }
+        { "photo": "URM_Bookshop-3.jpg", "alt": "A warm welcome from a smiling staff member at the counter" },
+        { "photo": "URM_Bookshop-44.jpg", "alt": "A smiling staff member at the Upper Room cafe counter" }
       ] },
       "inside-room": { "photos": [
         { "photo": "URM_Bookshop-6.jpg", "alt": "The gift table and timber shelves under the paper lanterns" },
@@ -124,7 +127,9 @@
         { "photo": "URM_Bookshop-72.jpg", "alt": "Timber shelves around the Upper Room logo, with an icon of Christ" }
       ] },
       "inside-guests": { "photos": [
-        { "photo": "URM_Bookshop-25.jpg", "alt": "A guest reading at a table with her coffee" }
+        { "photo": "URM_Bookshop-25.jpg", "alt": "A guest reading at a table with her coffee" },
+        { "photo": "URM_Bookshop-30.jpg", "alt": "A guest relaxing at a cafe table with the shop behind her" },
+        { "photo": "URM_Bookshop-22.jpg", "alt": "A guest laughing over a book at a cafe table" }
       ] },
       "gifts": { "photos": [
         { "photo": "URM_Bookshop-14.jpg", "alt": "A wall of icons, prayer ropes and Upper Room tote bags" },
