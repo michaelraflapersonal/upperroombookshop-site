@@ -12,12 +12,8 @@
     "not_found_handling": "404-page",
     "run_worker_first": ["/api/*", "/books/*"]
   },
-<<<<<<< HEAD
+  "vars": { "GOOGLE_PLACE_ID": "ChIJJSBaAni5EmsRCzlsPK468Jk" },
   "observability": { "enabled": true },
   // Needed for Workers Builds previews on pull requests (npx wrangler preview).
   "previews": {}
-=======
-  "vars": { "GOOGLE_PLACE_ID": "ChIJJSBaAni5EmsRCzlsPK468Jk" },
-  "observability": { "enabled": true }
->>>>>>> 7ed5dcb (Keep GOOGLE_PLACE_ID in wrangler vars so deploys don't remove it)
 }
