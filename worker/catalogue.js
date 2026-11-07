@@ -8,6 +8,9 @@
 // visitors get the cached copy at once while a fresh one is fetched in the background. If Square is
 // down, the last good copy (kept up to 7 days) is served instead.
 import cfg from '../content/catalogue.json';
+import settings from '../content/settings.json';
+
+const BIZ_NAME = settings.business.name; // one source for the name: see README, "Naming"
 
 const SQ = 'https://connect.squareup.com/v2';
 const SQ_VERSION = '2025-01-23';
@@ -251,7 +254,7 @@ export async function onRequestShelfPage({ request, env, ctx }) {
       const it = data.items.find((x) => x.id === parts[1].toLowerCase());
       if (it) {
         title = `${it.t}${it.a ? ` by ${it.a}` : ''} | Upper Room Ramsgate`;
-        desc = it.lede || `${it.t}, in ${it.c} at Upper Room Christian Bookshop Cafe, Ramsgate.`;
+        desc = it.lede || `${it.t}, in ${it.c} at ${BIZ_NAME}, Ramsgate.`;
         image = it.img;
       } else status = 404;
     } else if (data) {

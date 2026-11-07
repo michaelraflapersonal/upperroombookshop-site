@@ -9,7 +9,7 @@ A small Python script (no extra packages) builds plain HTML pages into `dist/`. 
 | Folder / file | What it is |
 |---|---|
 | `content/catalogue.json` | Words around the Books & gifts pages (section blurbs, hold notes). The books themselves come live from Square |
-| `content/settings.json` | **The things staff change:** opening hours, phone and email, Coffee with Christ time, Narellan status, announcement banner, gift card, donate and Google Maps links |
+| `content/settings.json` | **The things staff change:** the business name, opening hours, phone and email, Coffee with Christ time, Narellan status, announcement banner, gift card, donate and Google Maps links |
 | `src/` | Page templates, styles and scripts (`build.py` runs everything) |
 | `static/img/` | Photos and logos, copied to `/img/` on the site |
 | `functions/api/contact.js` | Contact form handler: Turnstile spam check, then emails info@ through Resend. Also carries hold and order requests from Books & gifts |
@@ -17,6 +17,18 @@ A small Python script (no extra packages) builds plain HTML pages into `dist/`. 
 | `src/_redirects` | Old Squarespace addresses that forward to the new pages |
 | `src/_headers` | Security and caching headers |
 | `docs/` | Setup and go-live guides |
+
+## Naming
+
+The business name is **Upper Room Christian Bookshop Cafe**, or **Upper Room** for short. Three rules:
+
+- No "&" or "and" between Bookshop and Cafe. Not "Christian Bookshop & Cafe".
+- "Cafe" has no accent, matching the logo and the Google listing. Not "Café".
+- Upper Room is a ministry of the Coptic Orthodox Church. Don't call it a "Coptic Orthodox bookshop".
+
+The name lives in one place, `business` in `content/settings.json` (`name`, `short_name`, and `descriptor` = "Christian Bookshop Cafe"). Templates use `%%BIZ_NAME%%`, `%%BIZ_SHORT%%` and `%%BIZ_DESCRIPTOR%%`, and the Books & gifts worker reads the same file.
+
+`src/build.py` checks the built site and the worker code, and stops the build (so nothing deploys) if it finds "Bookshop & Cafe", "Bookshop and Cafe" in title case, "Café", or the shortened "Upper Room Christian Bookshop". Plain descriptions like "a Christian bookshop and cafe in Ramsgate" are fine, and so are labels like "Books & gifts".
 
 ## Common edits
 

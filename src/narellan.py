@@ -1,5 +1,5 @@
 NAR_SCHEMA = {"@context":"https://schema.org","@type":["BookStore","CafeOrCoffeeShop"],"@id":"https://www.upperroombookshop.com/visit/narellan#location",
-  "name":"Upper Room Christian Bookshop Cafe, Narellan","url":"https://www.upperroombookshop.com/visit/narellan",
+  "name":"%%BIZ_NAME%%, Narellan","url":"https://www.upperroombookshop.com/visit/narellan",
   "address":{"@type":"PostalAddress","streetAddress":"Kasland House 6","addressLocality":"Narellan","addressRegion":"NSW","postalCode":"2567","addressCountry":"AU"},
   "parentOrganization":ORG,"sameAs":[IG]}
 nar = phero(None, [('index.html','Home'),('visit.html','Visit'),(None,'Narellan')], '%%NAR_STATUS%% · Sydney\'s South West',
@@ -49,4 +49,4 @@ nar += f'''
 <section class="band alt" style="padding-block:clamp(56px,7vw,96px)">
   <div class="wrap"><a class="nextcard rv" href="ramsgate.html"><div><span class="eyebrow">Open now</span><h3 class="serif" style="margin-top:12px">Visit Upper Room, Ramsgate</h3></div><span class="arr" aria-hidden="true">→</span></a></div>
 </section>'''
-page('narellan.html','Christian Bookshop &amp; Cafe in Narellan | Upper Room','Upper Room Christian Bookshop Cafe is coming to Narellan, opposite the town centre: a Christian bookshop and cafe for Sydney\'s South West. Opening soon.', nar, NAR_SCHEMA)
+page('narellan.html','%%BIZ_DESCRIPTOR%% in Narellan | %%BIZ_SHORT%%','%%BIZ_NAME%% is coming to Narellan, opposite the town centre: a Christian bookshop and cafe for Sydney\'s South West. Opening soon.', nar, NAR_SCHEMA)
