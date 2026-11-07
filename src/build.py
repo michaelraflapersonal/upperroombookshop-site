@@ -13,7 +13,11 @@ shutil.copytree(os.path.join(ROOT, 'static'), OUT)
 GIFT = S['links']['gift_cards']
 DONATE = S['links']['donate']
 PLACE_ID = S['links']['google_place_id']
-_PLACE_NAME = 'Upper+Room+Christian+Bookshop+Cafe'
+# The business name lives in one place: settings.json "business". See README, "Naming".
+BIZ = S['business']
+BIZ_NAME, BIZ_SHORT, BIZ_DESCRIPTOR = BIZ['name'], BIZ['short_name'], BIZ['descriptor']
+import urllib.parse as _up
+_PLACE_NAME = _up.quote_plus(BIZ_NAME)
 MAPS = f'https://www.google.com/maps/search/?api=1&query={_PLACE_NAME}&query_place_id={PLACE_ID}'
 DIRS = f'https://www.google.com/maps/dir/?api=1&destination={_PLACE_NAME}&destination_place_id={PLACE_ID}'
 WRITE_REVIEW = f'https://search.google.com/local/writereview?placeid={PLACE_ID}'
@@ -78,7 +82,7 @@ def header(cur):
             items.append(f'<li><a href="{href}"{ac}>{label}</a></li>')
     return f'''<header class="site" id="hdr">
   <div class="wrap row">
-    <a class="logo" href="index.html" aria-label="Upper Room Christian Bookshop Cafe, home"><img class="lw" src="img/logo-white.png" alt=""><img class="lo" src="img/logo-olive.png" alt=""></a>
+    <a class="logo" href="index.html" aria-label="%%BIZ_NAME%%, home"><img class="lw" src="img/logo-white.png" alt=""><img class="lo" src="img/logo-olive.png" alt=""></a>
     <nav aria-label="Main"><ul>{''.join(items)}</ul></nav>
     <a class="btn findus" href="visit.html">Find us {ARR}</a>
     <button class="burger" type="button" data-menu aria-expanded="false" aria-controls="mnav" aria-label="Menu"><span></span><span></span><span></span></button>
@@ -104,12 +108,12 @@ def header(cur):
 
 FOOTER = f'''<footer id="foot">
   <div class="wrap cols">
-    <div style="display:grid;gap:20px;align-content:start"><img class="flogo" src="img/logo-white.png" alt="Upper Room Christian Bookshop Cafe"><p class="tag">A not-for-profit ministry of the Coptic Orthodox Church, open to everyone.</p></div>
+    <div style="display:grid;gap:20px;align-content:start"><img class="flogo" src="img/logo-white.png" alt="%%BIZ_NAME%%"><p class="tag">A not-for-profit ministry of the Coptic Orthodox Church, open to everyone.</p></div>
     <div><h2 class="fh">Ramsgate</h2><p>%%ADDR_STREET%%<br>%%ADDR_LINE2%%</p><div class="hours" style="margin-top:12px">%%HOURS_GRID%%</div></div>
     <div><h2 class="fh">Explore</h2><div class="sitemap"><a href="visit.html">Visit</a><a href="books.html">Books &amp; gifts</a><a href="coffee-with-christ.html">Coffee with Christ</a><a href="events.html">Events</a><a href="learn-more.html">Explore the faith</a><a href="gallery.html">Gallery</a><a href="support.html">Gift cards &amp; donations</a></div></div>
     <div><h2 class="fh">Contact</h2><p><a href="tel:%%PHONE_TEL%%">%%PHONE%%</a><br><a href="mailto:%%EMAIL%%">%%EMAIL%%</a><br><a href="{IG}">Instagram</a> · <a href="https://upperroommedia.org/">Upper Room Media</a></p><p style="margin-top:14px"><a href="narellan.html">Narellan: opening soon</a></p></div>
   </div>
-  <div class="wrap base"><span>© Upper Room Christian Bookshop Cafe</span></div>
+  <div class="wrap base"><span>© %%BIZ_NAME%%</span></div>
 </footer>
 <script src="/site.js"></script>'''
 
@@ -140,7 +144,7 @@ def page(fname, title, desc, body, schema=None, home=False, noindex=False):
     canon = SITE + path
     head = (f'<title>{title}</title>\n<meta name="description" content="{desc}">\n'
             + ('' if noindex else f'<link rel="canonical" href="{canon}">\n')
-            + f'<meta property="og:type" content="website">\n<meta property="og:site_name" content="Upper Room Christian Bookshop Cafe">\n'
+            + f'<meta property="og:type" content="website">\n<meta property="og:site_name" content="%%BIZ_NAME%%">\n'
             f'<meta property="og:title" content="{title}">\n<meta property="og:description" content="{desc}">\n'
             f'<meta property="og:url" content="{canon}">\n<meta property="og:image" content="{_og_image(body)}">\n<meta property="og:locale" content="en_AU">\n<meta name="twitter:card" content="summary_large_image">\n'
             + ('<meta name="robots" content="noindex">\n' if noindex else '') + FONTS)
@@ -159,7 +163,7 @@ def fr(img, alt, cls='', speed='0.06', style=''):
 
 ORG = {"@id":"https://www.upperroombookshop.com/#org"}
 RAMS_SCHEMA = {"@context":"https://schema.org","@type":["BookStore","CafeOrCoffeeShop"],"@id":"https://www.upperroombookshop.com/visit/ramsgate#location",
-  "name":"Upper Room Christian Bookshop Cafe, Ramsgate","url":"https://www.upperroombookshop.com/visit/ramsgate","telephone":PHONE_INTL,"email":EMAIL,
+  "name":f"{BIZ_NAME}, Ramsgate","url":"https://www.upperroombookshop.com/visit/ramsgate","telephone":PHONE_INTL,"email":EMAIL,
   "address":{"@type":"PostalAddress","streetAddress":"%%ADDR_STREET%%","addressLocality":"%%ADDR_SUBURB%%","addressRegion":"%%ADDR_STATE%%","postalCode":"%%ADDR_POSTCODE%%","addressCountry":"AU"},
   "openingHoursSpecification":OPENING_SPEC,
   "image":SITE+"/img/URM_Bookshop-99.jpg","priceRange":"$","parentOrganization":ORG,"sameAs":[IG]}
@@ -197,8 +201,8 @@ rep = [
 for a,b in rep:
     assert a in main, a; main = main.replace(a,b)
 main = apply_featured(main)
-HOME_SCHEMA = {"@context":"https://schema.org","@type":"Organization","@id":"https://www.upperroombookshop.com/#org","name":"Upper Room Christian Bookshop Cafe","url":"https://www.upperroombookshop.com/","logo":SITE+"/img/logo-olive.png","email":EMAIL,"sameAs":[IG],"department":[{"@id":"https://www.upperroombookshop.com/visit/ramsgate#location"},{"@id":"https://www.upperroombookshop.com/visit/narellan#location"}]}
-page('index.html','Upper Room | Christian Bookshop &amp; Cafe, Ramsgate Sydney','A welcoming Christian bookshop and cafe in Ramsgate, Sydney, with a weekly Bible study. A not-for-profit ministry of the Coptic Orthodox Church, open to all.', main, HOME_SCHEMA)
+HOME_SCHEMA = {"@context":"https://schema.org","@type":"Organization","@id":"https://www.upperroombookshop.com/#org","name":BIZ_NAME,"url":"https://www.upperroombookshop.com/","logo":SITE+"/img/logo-olive.png","email":EMAIL,"sameAs":[IG],"department":[{"@id":"https://www.upperroombookshop.com/visit/ramsgate#location"},{"@id":"https://www.upperroombookshop.com/visit/narellan#location"}]}
+page('index.html','%%BIZ_SHORT%% | %%BIZ_DESCRIPTOR%%, Ramsgate Sydney','A welcoming Christian bookshop and cafe in Ramsgate, Sydney, with a weekly Bible study. A not-for-profit ministry of the Coptic Orthodox Church, open to all.', main, HOME_SCHEMA)
 
 exec(open(os.path.join(B,'pages.py')).read())
 exec(open(os.path.join(B,'books.py')).read())
@@ -213,3 +217,26 @@ for _p in glob.glob(os.path.join(OUT, '**', '*.html'), recursive=True):
     for _f, _h in _stamp.items():
         _n = re.sub(rf'(href|src)="/{re.escape(_f)}"', rf'\1="/{_f}?v={_h}"', _n)
     if _n != _d: open(_p, 'w', encoding='utf-8').write(_n)
+
+# Naming check: the business is always "Upper Room Christian Bookshop Cafe" (settings.json "business").
+# No "&" or "and" between Bookshop and Cafe, no accent on Cafe, and no shortened "Christian Bookshop" name.
+# Lower-case prose such as "a Christian bookshop and cafe" is allowed; it describes, it doesn't name.
+# Fails the build (so nothing deploys) if a banned variant appears in the built site or the worker code.
+_BANNED = [
+    (r'(?i)\bbookshops?\s*(?:&amp;|&#0*38;|&)\s*caf', '"&" between Bookshop and Cafe'),
+    (r'Bookshops? and Caf', '"Bookshop and Cafe" in title case (use "Christian Bookshop Cafe")'),
+    (r'(?i)caf(?:é|&eacute;|&#0*233;|&#x0*e9;|é)', 'accented "Café" (use "Cafe")'),
+    (r'(?i)upper room christian bookshop(?!\s+cafe)', 'shortened name (use "Upper Room Christian Bookshop Cafe")'),
+]
+_problems = []
+_scan = glob.glob(os.path.join(OUT, '**', '*'), recursive=True) + \
+        [os.path.join(ROOT, d, f) for d in ('worker', os.path.join('functions', 'api')) for f in os.listdir(os.path.join(ROOT, d))]
+for _p in _scan:
+    if not _p.endswith(('.html', '.js', '.json', '.xml', '.txt', '.css')) or not os.path.isfile(_p): continue
+    _t = open(_p, encoding='utf-8', errors='ignore').read()
+    for _rx, _why in _BANNED:
+        for _m in re.finditer(_rx, _t):
+            _problems.append(f'  {os.path.relpath(_p, ROOT)}: {_why}: ...{_t[max(0, _m.start() - 30):_m.end() + 20]!r}...')
+if _problems:
+    raise SystemExit('Naming check failed. See README, "Naming".\n' + '\n'.join(_problems[:40]))
+print('Naming check passed')

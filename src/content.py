@@ -107,6 +107,7 @@ def announcement():
 
 _A = S['ramsgate']['address']
 TOKENS = {
+    'BIZ_NAME': BIZ_NAME, 'BIZ_SHORT': BIZ_SHORT, 'BIZ_DESCRIPTOR': BIZ_DESCRIPTOR,
     'PHONE': PHONE, 'PHONE_TEL': PHONE_TEL, 'EMAIL': EMAIL,
     'ADDR_STREET': _A['street'], 'ADDR_SUBURB': _A['suburb'], 'ADDR_STATE': _A['state'], 'ADDR_POSTCODE': _A['postcode'],
     'ADDR_LINE2': f"{_A['suburb']} {_A['state']} {_A['postcode']}",

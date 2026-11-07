@@ -58,10 +58,10 @@ visit += f'''
   <div class="shade" aria-hidden="true"></div>
   <div class="wrap verse"><span class="hair rv" aria-hidden="true"></span><blockquote class="rv">“For where two or three gather in my name, there am I with them.”</blockquote><cite class="rv">Matthew 18:20</cite></div>
 </section>'''
-page('visit.html','Visit Upper Room | Christian Bookshops &amp; Cafes in Sydney','Visit Upper Room Christian Bookshop Cafe in Ramsgate, and soon in Narellan. Opening hours, directions and what to expect.', visit)
+page('visit.html','Visit %%BIZ_SHORT%% | %%BIZ_DESCRIPTOR%%, Ramsgate and Narellan','Visit %%BIZ_NAME%% in Ramsgate, and soon in Narellan. Opening hours, directions and what to expect.', visit)
 
 # ================================================================ RAMSGATE
-rams = phero('cafe-12.jpg', [('index.html','Home'),('visit.html','Visit'),(None,'Ramsgate')], 'Christian bookshop &amp; cafe · Ramsgate',
+rams = phero('cafe-12.jpg', [('index.html','Home'),('visit.html','Visit'),(None,'Ramsgate')], '%%BIZ_DESCRIPTOR%% · Ramsgate',
   'Upper Room, <em>Ramsgate</em>', 'Timber shelves, warm light and good coffee on Rocky Point Road, a short drive from Sans Souci, Sandringham and Sylvania.', mob='URM_Bookshop-12.jpg')
 rams += f'''
 <section style="background:var(--bg)">
@@ -116,12 +116,12 @@ rams += f'''
   <div class="wrap"><a class="nextcard rv" href="narellan.html"><div><span class="eyebrow">In Sydney's South West?</span><h3 class="serif" style="margin-top:12px">Upper Room Narellan is opening soon</h3></div><span class="arr" aria-hidden="true">→</span></a></div>
 </section>'''
 RAMS_SCHEMA['hasMap'] = MAPS
-page('ramsgate.html','Christian Bookshop &amp; Cafe in Ramsgate | Upper Room','Books, gifts and coffee at %%ADDR_SHORT%%. Open Monday to Saturday from 7am, with Bible study on Thursday nights. Near Sans Souci and Sylvania.', rams, RAMS_SCHEMA)
+page('ramsgate.html','%%BIZ_DESCRIPTOR%% in Ramsgate | %%BIZ_SHORT%%','Books, gifts and coffee at %%ADDR_SHORT%%. Open Monday to Saturday from 7am, with Bible study on Thursday nights. Near Sans Souci and Sylvania.', rams, RAMS_SCHEMA)
 
 exec(open(os.path.join(B,'narellan.py')).read())
 
 # ================================================================ COFFEE WITH CHRIST
-CWC_SCHEMA = {"@context":"https://schema.org","@type":"Event","name":"Coffee with Christ: Thursday Bible study","description":"A relaxed weekly Bible study held in the cafe. No church background needed, no booking required.","eventSchedule":{"@type":"Schedule","byDay":"https://schema.org/"+CWC["day"],"startTime":CWC["start"],"endTime":CWC["end"],"repeatFrequency":"P1W","scheduleTimezone":"Australia/Sydney"},"eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode","isAccessibleForFree":True,"startDate":next_cwc()+"T"+CWC["start"],"endDate":next_cwc()+"T"+CWC["end"],"eventStatus":"https://schema.org/EventScheduled","location":{"@type":"Place","@id":"https://www.upperroombookshop.com/visit/ramsgate#location","name":"Upper Room Christian Bookshop Cafe, Ramsgate","address":{"@type":"PostalAddress","streetAddress":"%%ADDR_STREET%%","addressLocality":"%%ADDR_SUBURB%%","addressRegion":"%%ADDR_STATE%%","postalCode":"%%ADDR_POSTCODE%%","addressCountry":"AU"}},"organizer":ORG}
+CWC_SCHEMA = {"@context":"https://schema.org","@type":"Event","name":"Coffee with Christ: Thursday Bible study","description":"A relaxed weekly Bible study held in the cafe. No church background needed, no booking required.","eventSchedule":{"@type":"Schedule","byDay":"https://schema.org/"+CWC["day"],"startTime":CWC["start"],"endTime":CWC["end"],"repeatFrequency":"P1W","scheduleTimezone":"Australia/Sydney"},"eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode","isAccessibleForFree":True,"startDate":next_cwc()+"T"+CWC["start"],"endDate":next_cwc()+"T"+CWC["end"],"eventStatus":"https://schema.org/EventScheduled","location":{"@type":"Place","@id":"https://www.upperroombookshop.com/visit/ramsgate#location","name":"%%BIZ_NAME%%, Ramsgate","address":{"@type":"PostalAddress","streetAddress":"%%ADDR_STREET%%","addressLocality":"%%ADDR_SUBURB%%","addressRegion":"%%ADDR_STATE%%","postalCode":"%%ADDR_POSTCODE%%","addressCountry":"AU"}},"organizer":ORG}
 cwc = phero("coffee-with-christ-hand.jpg", [("index.html","Home"),("events.html","Events"),(None,"Coffee with Christ")], '%%CWC_EVERY%% · %%CWC_WHERE%%',
   'Coffee with <em>Christ</em>', 'A relaxed weekly Bible study, held around a table in the cafe. No church background needed, no booking required. Come as you are, and bring your questions.',
   f'<div style="display:flex;gap:24px;flex-wrap:wrap;align-items:center"><a class="btn" href="ramsgate.html">How to find us {ARR}</a><a class="tlink" href="narellan.html" style="color:#F4F2EE">Coming to Narellan too {ARR}</a></div>', pos='72% 70%')
@@ -185,7 +185,7 @@ ev += f'''
     {fr('cafe-36.jpg','Clergy cutting the ribbon at the Upper Room grand opening','wide','0.06')}
   </div>
 </section>'''
-page('events.html','Events | Upper Room Christian Bookshop Cafe','A weekly Thursday Bible study and occasional gatherings at Upper Room Christian Bookshop Cafe. Everyone is welcome.', ev)
+page('events.html','Events | %%BIZ_NAME%%','A weekly Thursday Bible study and occasional gatherings at %%BIZ_NAME%%. Everyone is welcome.', ev)
 
 # ================================================================ LEARN MORE
 lm = '<div class="progress" aria-hidden="true"><i></i></div>' + phero(None, [('index.html','Home'),(None,'Explore the faith')], 'An introduction',
@@ -304,7 +304,7 @@ gal += f'''
 </section>
 {ig_section('On Instagram', 'More from the shop floor')}
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer"><div style="display:grid;justify-items:center"><img src="" alt=""><p></p></div><button class="x" type="button">Close</button><button class="pv" type="button" aria-label="Previous photo">‹</button><button class="nx" type="button" aria-label="Next photo">›</button></div>'''
-page('gallery.html','Gallery | Inside Upper Room Christian Bookshop Cafe','Photos from inside Upper Room Christian Bookshop Cafe in Ramsgate: the bookshop, the cafe, gifts and our grand opening day.', gal)
+page('gallery.html','Gallery | Inside %%BIZ_NAME%%','Photos from inside %%BIZ_NAME%% in Ramsgate: the bookshop, the cafe, gifts and our grand opening day.', gal)
 
 # ================================================================ SUPPORT
 sup = phero('URM_Bookshop-87.jpg', [('index.html','Home'),(None,'Support')], 'Support Upper Room',
@@ -362,4 +362,4 @@ con += f'''
     </div>
   </div>
 </section>'''
-page('contact.html','Contact | Upper Room Christian Bookshop Cafe','Contact Upper Room Christian Bookshop Cafe in Ramsgate by phone, email or message. 0494 729 748, info@upperroombookshop.com.', con)
+page('contact.html','Contact | %%BIZ_NAME%%','Contact %%BIZ_NAME%% in Ramsgate by phone, email or message. 0494 729 748, info@upperroombookshop.com.', con)

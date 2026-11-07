@@ -80,7 +80,7 @@
       + askBand();
   }
   function askBand(){
-    return '<section class="band alt"><div class="wrap bk-ask"><figure><img src="/img/URM_Bookshop-25-800.webp" alt="A visitor reading at a café table with a coffee" loading="lazy"></figure>'
+    return '<section class="band alt"><div class="wrap bk-ask"><figure><img src="/img/URM_Bookshop-25-800.webp" alt="A visitor reading at a cafe table with a coffee" loading="lazy"></figure>'
       + '<div><span class="eyebrow">Can’t see it here?</span><h2>Ask us. We’re happy to help you find the right book.</h2>'
       + '<p>If a book isn’t on the shelf, we can usually order it in. Tell us what you’re looking for, or who it’s for, and we’ll suggest a few to look at next time you’re in.</p>'
       + '<div class="bk-acts" style="margin-top:26px"><a class="btn" href="/contact">Send us a note ' + ARR + '</a><a class="btn bk-ghostbtn" href="/visit/ramsgate">Visit Ramsgate</a></div></div></div></section>';

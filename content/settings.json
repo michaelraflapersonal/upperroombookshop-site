@@ -1,4 +1,9 @@
 {
+  "business": {
+    "name": "Upper Room Christian Bookshop Cafe",
+    "short_name": "Upper Room",
+    "descriptor": "Christian Bookshop Cafe"
+  },
   "announcement": {
     "show": false,
     "text": "We're closed on Saturday 26 December. Merry Christmas from all of us at Upper Room.",

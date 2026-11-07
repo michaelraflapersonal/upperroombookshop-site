@@ -23,6 +23,6 @@ books = f'''<section class="bk-pin" aria-hidden="true"></section>
 </div>
 <script type="application/json" id="shelf-cfg">{_cfg_json}</script>
 <script src="/books.js" defer></script>'''
-page('books.html', 'Books &amp; Gifts | Upper Room Christian Bookshop, Ramsgate',
+page('books.html', 'Books &amp; Gifts | %%BIZ_NAME%%, Ramsgate',
      'Browse the Christian books and gifts on the shelves at Upper Room in Ramsgate: Orthodox spirituality, saints, Bibles, children&rsquo;s books and more, with live stock.', books)
 open(os.path.join(OUT, 'books.js'), 'w', encoding='utf-8').write(open(os.path.join(B, 'books.js'), encoding='utf-8').read())
